@@ -89,6 +89,11 @@
     border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif}
   .btn-new:hover{background:#e5e5e5}
   .err-box{background:#fff5f5;border:1px solid #fcc;border-radius:8px;padding:14px;margin-top:14px;font-size:13px;color:#c00}
+
+  .nota-box{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;
+    border-radius:50%;background:#e85d26;color:#fff;font-size:22px;font-weight:800;margin-bottom:14px}
+  .resumo-box{background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;
+    margin:16px 0;text-align:left;font-size:14px;line-height:1.7;color:#333}
 </style>
 </head>
 <body>
@@ -163,9 +168,11 @@
 <!-- ③ Resultado -->
 <div id="result-view" class="wrap">
   <div class="res-card">
+    <div id="res-nota" class="nota-box" style="display:none"></div>
     <div class="res-icon" id="res-icon">🎉</div>
     <div class="res-t" id="res-t">Diagnóstico pronto!</div>
-    <div class="res-s" id="res-s">A Carta de Diagnóstico foi gerada com sucesso no Canva.</div>
+    <div class="res-s" id="res-s"></div>
+    <div id="res-resumo" class="resumo-box" style="display:none"></div>
     <a id="canva-link" href="#" target="_blank" class="btn-canva" style="display:none">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       Abrir no Canva
@@ -284,7 +291,25 @@ function showResult(r) {
     document.getElementById('res-s').textContent='Veja o detalhe abaixo:';
     document.getElementById('err-box').innerHTML=`<div class="err-box">${r.error}</div>`;
   } else {
-    document.getElementById('res-s').textContent=`Carta de Diagnóstico de ${r.escola||''} gerada!`;
+    document.getElementById('res-t').textContent=`Diagnóstico de ${r.escola||''} pronto!`;
+    document.getElementById('res-s').textContent=`Diretor(a): ${r.diretor||''}`;
+
+    // Show nota
+    if(r.nota) {
+      const notaEl = document.getElementById('res-nota');
+      notaEl.textContent = r.nota;
+      notaEl.style.display = 'inline-flex';
+      document.getElementById('res-icon').style.display = 'none';
+    }
+
+    // Show resumo
+    if(r.resumo) {
+      const resumoEl = document.getElementById('res-resumo');
+      resumoEl.textContent = r.resumo;
+      resumoEl.style.display = 'block';
+    }
+
+    // Show Canva link if available
     if(r.canva_url || r.edit_url) {
       const a=document.getElementById('canva-link');
       a.href=r.canva_url||r.edit_url;
@@ -299,6 +324,9 @@ function reset() {
   document.getElementById('btn-go').disabled=false;
   document.getElementById('err-box').innerHTML='';
   document.getElementById('canva-link').style.display='none';
+  document.getElementById('res-nota').style.display='none';
+  document.getElementById('res-resumo').style.display='none';
+  document.getElementById('res-icon').style.display='block';
   show('form-view');
 }
 
