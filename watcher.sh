@@ -55,7 +55,7 @@ while true; do
     echo "🚀 Executando Claude Code..."
 
     # Executa o Claude Code passando o prompt via stdin
-    cat "$TEMP_PROMPT" | claude --print 2>&1 | while IFS= read -r line; do
+    cat "$TEMP_PROMPT" | claude --print --dangerously-skip-permissions 2>&1 | while IFS= read -r line; do
       echo "   $line"
 
       # Atualiza status baseado na saída do Claude
