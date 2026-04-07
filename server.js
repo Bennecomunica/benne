@@ -38,29 +38,61 @@ Você está rodando em modo automatizado (não-interativo). NÃO peça confirma�
 - Analise os últimos posts do perfil
 - Identifique: tipo de conteúdo predominante, engajamento estimado
 
-### Etapa 3 — Montar análise e recomendações
+### Etapa 3 — Montar análise e recomendações (COM LIMITES DE CARACTERES)
+IMPORTANTE: Cada texto gerado DEVE respeitar o limite exato de caracteres indicado abaixo. Isso é fundamental para não quebrar o layout do Canva. Conte os caracteres antes de inserir. Se necessário, resuma ou expanda para caber exatamente.
+
 Monte a Carta de Diagnóstico com:
-1. O que a escola faz bem (mínimo 3 pontos)
-2. Ajustes práticos para melhorar o perfil (mínimo 4 pontos com sugestões concretas)
-3. Resumo das Prioridades (parágrafo resumindo as ações mais importantes)
 
-### Etapa 4 — Editar o template no Canva
-IMPORTANTE: Você DEVE usar o template existente, NÃO crie um design do zero.
+**Campo 1 — "O que a escola faz bem:" (4 itens, cada um com no máximo 80 caracteres)**
+Exemplo de formato:
+- "Conta verificada no Instagram (✓ blue check);" (47 chars)
+- "Bio clara com 35 anos de história e diferenciais bem descritos;" (64 chars)
+- "7 destaques organizados — incluindo Tour Virtual, diferencial competitivo;" (75 chars)
+- "390 posts com consistência de conteúdo." (40 chars)
 
-1. Use start-editing-transaction no design ID: DAHDltnE2KY
-2. Substitua APENAS os textos em verde (os campos dinâmicos) com os dados do diagnóstico:
-   - Substitua "[Nome do Colégio]" pelo nome da escola: "${escola}"
-   - Substitua o bloco "O que a escola faz bem:" pelos pontos fortes encontrados
-   - Substitua os "4 ajustes práticos" pelas recomendações geradas
-   - Substitua o "Resumo das Prioridades" pelo resumo gerado
-3. As 3 áreas de foto no template devem receber as imagens enviadas pelo formulário (se disponíveis):
-   - Foto 1: Bio (print da bio do Instagram)
-   - Foto 2: Destaques (print dos destaques)
-   - Foto 3: Alunos (print do número de alunos)
-4. Faça commit-editing-transaction para salvar
-5. Obtenha o link de edição do design
+**Campo 2 — "4 ajustes práticos para melhorar hoje o perfil da escola:" (4 itens)**
+Cada ajuste deve ter:
+- Título curto (máximo 60 caracteres)
+- Sugestão/detalhe (máximo 150 caracteres)
+Formato: "1: [Título]\\nSugestão: [detalhe]"
 
-IMPORTANTE: NÃO use generate-design, generate-design-structured ou request-outline-review. Use APENAS start-editing-transaction + perform-editing-operations + commit-editing-transaction no design DAHDltnE2KY.
+**Campo 3 — "Resumo das Prioridades" (máximo 380 caracteres)**
+Um parágrafo único resumindo os pontos principais e as ações prioritárias.
+
+### Etapa 4 — Duplicar e editar o template no Canva
+IMPORTANTE: Siga estes passos EXATAMENTE nesta ordem:
+
+**Passo 4.1 — DUPLICAR o template original**
+O template original tem o design ID: DAHDltnE2KY
+Você DEVE criar uma cópia antes de editar. NÃO edite o original.
+Para duplicar, use a ferramenta de criação de design a partir do template, ou copie o design.
+
+**Passo 4.2 — Abrir a cópia para edição**
+Use start-editing-transaction no design DUPLICADO (não no original DAHDltnE2KY).
+
+**Passo 4.3 — Ler o conteúdo atual**
+Antes de substituir qualquer texto, LEIA o conteúdo atual de cada elemento do design para identificar os campos verdes (textos dinâmicos) e contar seus caracteres exatos.
+
+**Passo 4.4 — Substituir os textos verdes**
+Use perform-editing-operations para substituir APENAS os textos dinâmicos (verdes):
+- Substitua "[Nome do Colégio]" ou "Ol [Nome do Colégio]" por "Olá ${escola}"
+- Substitua os itens de "O que a escola faz bem:" pelos pontos fortes gerados
+- Substitua os "4 ajustes práticos" pelas recomendações geradas
+- Na página 2, substitua o parágrafo após "Resumo das Prioridades" pelo resumo gerado
+- Substitua "O Primeiro Mundo - Sorocaba" por "${escola}" no resumo
+
+REGRA DE OURO: O texto substituto deve ter o MESMO número de caracteres (±5%) do texto original. Ajuste a redação para caber.
+
+**Passo 4.5 — Inserir as imagens (se disponíveis)**
+Se imagens foram enviadas no formulário, faça upload e insira nas 3 áreas de foto:
+- Foto 1: Bio
+- Foto 2: Destaques
+- Foto 3: Alunos
+
+**Passo 4.6 — Salvar**
+Use commit-editing-transaction para salvar as alterações.
+
+IMPORTANTE: NÃO use generate-design, generate-design-structured ou request-outline-review. Use APENAS start-editing-transaction + perform-editing-operations + commit-editing-transaction.
 
 ### RESPOSTA FINAL OBRIGATÓRIA
 Depois de editar o design no Canva, sua ÚLTIMA mensagem deve ser SOMENTE este JSON (sem markdown, sem crases, sem texto extra):
