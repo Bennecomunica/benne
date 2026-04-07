@@ -40,23 +40,30 @@ Você está rodando em modo automatizado (não-interativo). NÃO peça confirma�
 
 ### Etapa 3 — Montar análise e recomendações
 Monte a Carta de Diagnóstico com:
-1. Resumo do Perfil
-2. Pontos Fortes (mínimo 3)
-3. Pontos de Melhoria (mínimo 3)
-4. Recomendações Práticas (mínimo 5)
-5. Nota Geral de 0 a 10
+1. O que a escola faz bem (mínimo 3 pontos)
+2. Ajustes práticos para melhorar o perfil (mínimo 4 pontos com sugestões concretas)
+3. Resumo das Prioridades (parágrafo resumindo as ações mais importantes)
 
-### Etapa 4 — Criar documento no Canva
-Use a integração MCP do Canva para criar o documento.
-IMPORTANTE: Gere o design diretamente SEM pedir revisão ou aprovação do outline. NÃO use request-outline-review. Vá direto para generate-design ou generate-design-structured e depois commit.
-1. Gere um design no Canva com o conteúdo da Carta de Diagnóstico
-2. Use o estilo visual da Benne: cor principal #e85d26 (laranja), fundo escuro #111
-3. Inclua o nome da escola "${escola}" e do diretor(a) "${diretor}"
-4. Faça o commit do design imediatamente
+### Etapa 4 — Editar o template no Canva
+IMPORTANTE: Você DEVE usar o template existente, NÃO crie um design do zero.
+
+1. Use start-editing-transaction no design ID: DAHDltnE2KY
+2. Substitua APENAS os textos em verde (os campos dinâmicos) com os dados do diagnóstico:
+   - Substitua "[Nome do Colégio]" pelo nome da escola: "${escola}"
+   - Substitua o bloco "O que a escola faz bem:" pelos pontos fortes encontrados
+   - Substitua os "4 ajustes práticos" pelas recomendações geradas
+   - Substitua o "Resumo das Prioridades" pelo resumo gerado
+3. As 3 áreas de foto no template devem receber as imagens enviadas pelo formulário (se disponíveis):
+   - Foto 1: Bio (print da bio do Instagram)
+   - Foto 2: Destaques (print dos destaques)
+   - Foto 3: Alunos (print do número de alunos)
+4. Faça commit-editing-transaction para salvar
 5. Obtenha o link de edição do design
 
+IMPORTANTE: NÃO use generate-design, generate-design-structured ou request-outline-review. Use APENAS start-editing-transaction + perform-editing-operations + commit-editing-transaction no design DAHDltnE2KY.
+
 ### RESPOSTA FINAL OBRIGATÓRIA
-Depois de criar o design no Canva, sua ÚLTIMA mensagem deve ser SOMENTE este JSON (sem markdown, sem crases, sem texto extra):
+Depois de editar o design no Canva, sua ÚLTIMA mensagem deve ser SOMENTE este JSON (sem markdown, sem crases, sem texto extra):
 {"escola":"${escola}","diretor":"${diretor}","canva_url":"URL_DO_DESIGN","edit_url":"URL_DE_EDICAO","nota":0,"resumo":"resumo aqui"}
 `;
 
