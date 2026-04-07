@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benne — Diagnóstico Instagram</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#f4f4f4;color:#111;min-height:100vh}
+
+  .header{background:#111;padding:16px 36px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:20px;font-weight:800;color:#fff;letter-spacing:-1px}
+  .logo em{color:#e85d26;font-style:normal}
+  .logo-tag{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+  .wrap{max-width:700px;margin:32px auto;padding:0 20px 80px}
+
+  /* Setup step */
+  #setup-view{text-align:center;padding:60px 20px}
+  .setup-icon{font-size:52px;margin-bottom:16px}
+  .setup-title{font-size:22px;font-weight:700;margin-bottom:8px}
+  .setup-desc{font-size:14px;color:#777;max-width:400px;margin:0 auto 28px;line-height:1.6}
+  .btn-folder{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;
+    background:#e85d26;color:#fff;border:none;border-radius:10px;font-size:15px;
+    font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
+  .btn-folder:hover{background:#d44a15}
+
+  /* Form */
+  #form-view{display:none}
+  .folder-bar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e5e5e5;
+    border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:13px;color:#555}
+  .folder-bar span{font-weight:600;color:#111;flex:1}
+  .folder-bar button{font-size:12px;color:#e85d26;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+
+  .page-title{font-size:22px;font-weight:700;margin-bottom:4px}
+  .page-sub{font-size:13px;color:#888;margin-bottom:24px}
+
+  .card{background:#fff;border-radius:12px;padding:24px 28px;margin-bottom:14px;border:1px solid #e8e8e8}
+  .sec{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .sec-n{width:28px;height:28px;background:#e85d26;color:#fff;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+  .sec-t{font-size:15px;font-weight:600}
+  .sec-s{font-size:12px;color:#aaa;margin-top:1px}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .fg{margin-bottom:12px}.fg:last-child{margin-bottom:0}
+  label{display:block;font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}
+  input[type=text],input[type=url]{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;
+    border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;outline:none;background:#fafafa;transition:border .15s}
+  input:focus{border-color:#e85d26;background:#fff}
+
+  /* Uploads */
+  .ups{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .up-item label{text-align:center;display:block;margin-bottom:7px}
+  .uz{position:relative;border:2px dashed #ddd;border-radius:10px;min-height:140px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .15s;background:#fafafa;text-align:center;padding:14px;overflow:hidden}
+  .uz:hover{border-color:#e85d26;background:#fff8f5}
+  .uz.ok{border-style:solid;border-color:#22c55e;padding:5px;background:#fff}
+  .uz .zi{font-size:24px;margin-bottom:5px;opacity:.4}
+  .uz .zt{font-size:12px;font-weight:500;color:#777}
+  .uz .zh{font-size:11px;color:#bbb;margin-top:3px}
+  .uz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2}
+  .uz img{width:100%;max-height:190px;object-fit:contain;border-radius:6px}
+  .ok-label{font-size:10px;color:#22c55e;font-weight:600;margin-top:4px;text-align:center}
+  .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.4);color:#fff;border:none;
+    border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;z-index:3;
+    display:flex;align-items:center;justify-content:center}
+
+  /* Submit */
+  .btn-submit{width:100%;padding:15px;background:#e85d26;color:#fff;border:none;border-radius:10px;
+    font-size:16px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s,transform .1s}
+  .btn-submit:hover{background:#d44a15;transform:translateY(-1px)}
+  .btn-submit:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+  /* Processing */
+  #proc-view{display:none;text-align:center}
+  .proc-card{background:#fff;border-radius:12px;padding:48px 28px;border:1px solid #e8e8e8}
+  .spin{width:48px;height:48px;border:4px solid #f0f0f0;border-top-color:#e85d26;border-radius:50%;
+    animation:spin .8s linear infinite;margin:0 auto 18px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .proc-t{font-size:19px;font-weight:700;margin-bottom:6px}
+  .proc-s{font-size:13px;color:#888;margin-bottom:26px}
+
+  .steps{text-align:left;max-width:320px;margin:0 auto}
+  .si{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;color:#aaa;border-bottom:1px solid #f5f5f5}
+  .si:last-child{border:none}
+  .sd{width:20px;height:20px;border-radius:50%;background:#f0f0f0;flex-shrink:0;font-size:11px;
+    display:flex;align-items:center;justify-content:center}
+  .si.done{color:#333}.si.done .sd{background:#22c55e;color:#fff}
+  .si.act{color:#e85d26;font-weight:500}.si.act .sd{background:#e85d26;color:#fff;animation:pp 1s infinite}
+  @keyframes pp{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* Result */
+  #result-view{display:none;text-align:center}
+  .res-card{background:#fff;border-radius:12px;padding:48px 28px;border:1px solid #e8e8e8}
+  .res-icon{font-size:44px;margin-bottom:14px}
+  .res-t{font-size:21px;font-weight:700;margin-bottom:6px}
+  .res-s{font-size:13px;color:#888;margin-bottom:26px}
+  .btn-canva{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;
+    background:#7d2ae8;color:#fff;border-radius:10px;text-decoration:none;
+    font-size:15px;font-weight:600;transition:background .15s}
+  .btn-canva:hover{background:#6a1fd0}
+  .btn-new{display:inline-block;margin-top:14px;padding:9px 18px;background:#f0f0f0;color:#555;
+    border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+  .btn-new:hover{background:#e5e5e5}
+  .err-box{background:#fff5f5;border:1px solid #fcc;border-radius:8px;padding:14px;margin-top:14px;font-size:13px;color:#c00}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">benne<em>.</em></div>
+    <div class="logo-tag">Diagnóstico Instagram</div>
+  </div>
+</div>
+
+<!-- ① Setup: selecionar pasta -->
+<div id="setup-view" class="wrap">
+  <div class="setup-icon">📁</div>
+  <div class="setup-title">Conectar pasta de trabalho</div>
+  <div class="setup-desc">
+    Selecione a pasta onde o Claude salva os arquivos da Benne.<br>
+    Geralmente é a pasta <strong>outputs</strong> dentro da pasta conectada ao Cowork.
+  </div>
+  <button class="btn-folder" onclick="selectFolder()">
+    📂 &nbsp;Selecionar pasta
+  </button>
+  <p style="margin-top:16px;font-size:12px;color:#bbb">Só precisa fazer isso uma vez por sessão</p>
+</div>
+
+<!-- ② Formulário -->
+<div id="form-view" class="wrap">
+  <div class="folder-bar">
+    📁 <span id="folder-name"></span>
+    <button onclick="changeFolder()">Trocar pasta</button>
+  </div>
+
+  <div class="page-title">Nova Carta de Diagnóstico</div>
+  <div class="page-sub">Preencha e clique em Gerar — o diagnóstico é criado automaticamente no Canva.</div>
+
+  <div class="card">
+    <div class="sec"><div class="sec-n">1</div><div><div class="sec-t">Dados da Escola</div><div class="sec-s">Informações básicas do colégio</div></div></div>
+    <div class="row2">
+      <div class="fg"><label>Nome do Diretor(a)</label><input type="text" id="f-diretor" placeholder="Ex: Ana Lima"></div>
+      <div class="fg"><label>Nome da Escola</label><input type="text" id="f-escola" placeholder="Ex: Colégio Primeiro Mundo"></div>
+    </div>
+    <div class="fg"><label>Link do Instagram</label><input type="url" id="f-instagram" placeholder="https://instagram.com/nomeescola"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec"><div class="sec-n">2</div><div><div class="sec-t">Prints do Perfil</div><div class="sec-s">Capturas de tela do Instagram</div></div></div>
+    <div class="ups">
+      <div class="up-item">
+        <label>📱 Bio</label>
+        <div class="uz" id="z-bio">
+          <div class="zi">📱</div><div class="zt">Bio</div><div class="zh">Clique para anexar</div>
+          <input type="file" accept="image/*" onchange="pick(this,'bio')">
+        </div>
+      </div>
+      <div class="up-item">
+        <label>⭐ Destaques</label>
+        <div class="uz" id="z-destaques">
+          <div class="zi">⭐</div><div class="zt">Highlights</div><div class="zh">Clique para anexar</div>
+          <input type="file" accept="image/*" onchange="pick(this,'destaques')">
+        </div>
+      </div>
+      <div class="up-item">
+        <label>📊 Alunos</label>
+        <div class="uz" id="z-alunos">
+          <div class="zi">📊</div><div class="zt">Nº de Alunos</div><div class="zh">Clique para anexar</div>
+          <input type="file" accept="image/*" onchange="pick(this,'alunos')">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-submit" id="btn-go" onclick="generate()">✦ &nbsp;Gerar Diagnóstico</button>
+</div>
+
+<!-- ③ Processando -->
+<div id="proc-view" class="wrap">
+  <div class="proc-card">
+    <div class="spin"></div>
+    <div class="proc-t">Gerando seu diagnóstico...</div>
+    <div class="proc-s" id="proc-msg">Aguardando início...</div>
+    <div class="steps">
+      <div class="si" id="s1"><div class="sd">1</div><span>Visitar perfil no Instagram</span></div>
+      <div class="si" id="s2"><div class="sd">2</div><span>Coletar dados e seguidores</span></div>
+      <div class="si" id="s3"><div class="sd">3</div><span>Analisar prints enviados</span></div>
+      <div class="si" id="s4"><div class="sd">4</div><span>Montar análise e recomendações</span></div>
+      <div class="si" id="s5"><div class="sd">5</div><span>Criar documento no Canva</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ Resultado -->
+<div id="result-view" class="wrap">
+  <div class="res-card">
+    <div class="res-icon" id="res-icon">🎉</div>
+    <div class="res-t" id="res-t">Diagnóstico pronto!</div>
+    <div class="res-s" id="res-s">A Carta de Diagnóstico foi gerada com sucesso no Canva.</div>
+    <a id="canva-link" href="#" target="_blank" class="btn-canva" style="display:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Abrir no Canva
+    </a>
+    <div id="err-box"></div>
+    <br>
+    <button class="btn-new" onclick="reset()">+ Novo Diagnóstico</button>
+  </div>
+</div>
+
+<script>
+let folderHandle = null;
+const imgs = {bio:null,destaques:null,alunos:null};
+const icons = {bio:'📱',destaques:'⭐',alunos:'📊'};
+const names = {bio:'Bio',destaques:'Highlights',alunos:'Nº Alunos'};
+
+// ─── Folder selection ───────────────────────────────────────────────────────
+async function selectFolder() {
+  try {
+    folderHandle = await window.showDirectoryPicker({mode:'readwrite'});
+    document.getElementById('folder-name').textContent = folderHandle.name;
+    show('form-view');
+  } catch(e) {
+    if(e.name !== 'AbortError') alert('Não foi possível acessar a pasta: ' + e.message);
+  }
+}
+function changeFolder() { folderHandle = null; show('setup-view'); }
+
+// ─── Image upload ────────────────────────────────────────────────────────────
+function pick(input, key) {
+  const file = input.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    imgs[key] = e.target.result;
+    const z = document.getElementById('z-'+key);
+    z.classList.add('ok');
+    z.innerHTML = `
+      <img src="${e.target.result}" alt="${names[key]}">
+      <div class="ok-label">✓ ${file.name}</div>
+      <button class="rm" onclick="event.stopPropagation();clr('${key}')">×</button>
+      <input type="file" accept="image/*" onchange="pick(this,'${key}')">
+    `;
+  };
+  r.readAsDataURL(file);
+}
+function clr(key) {
+  imgs[key]=null;
+  const z=document.getElementById('z-'+key);
+  z.classList.remove('ok');
+  z.innerHTML=`<div class="zi">${icons[key]}</div><div class="zt">${names[key]}</div><div class="zh">Clique para anexar</div><input type="file" accept="image/*" onchange="pick(this,'${key}')">`;
+}
+
+// ─── Submit ──────────────────────────────────────────────────────────────────
+async function generate() {
+  const diretor   = document.getElementById('f-diretor').value.trim();
+  const escola    = document.getElementById('f-escola').value.trim();
+  const instagram = document.getElementById('f-instagram').value.trim();
+  if(!diretor||!escola||!instagram){ alert('Preencha todos os campos.'); return; }
+  if(!folderHandle){ alert('Selecione a pasta primeiro.'); return; }
+
+  const btn = document.getElementById('btn-go');
+  btn.disabled = true;
+
+  // Write pending.json
+  const payload = { diretor, escola, instagram,
+    images:{ bio:imgs.bio||null, destaques:imgs.destaques||null, alunos:imgs.alunos||null }
+  };
+  try {
+    // Clear old result/status
+    for(const f of ['result.json','status.json']) {
+      try { await (await folderHandle.getFileHandle(f)).remove(); } catch(e){}
+    }
+    const fh = await folderHandle.getFileHandle('pending.json', {create:true});
+    const w  = await fh.createWritable();
+    await w.write(JSON.stringify(payload, null, 2));
+    await w.close();
+  } catch(e) {
+    alert('Erro ao salvar arquivo: '+e.message);
+    btn.disabled=false; return;
+  }
+
+  show('proc-view');
+  pollStatus();
+}
+
+// ─── Polling ──────────────────────────────────────────────────────────────────
+let pollTimer = null;
+async function pollStatus() {
+  if(pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    try {
+      // Read status.json
+      let status = null;
+      try {
+        const fh = await folderHandle.getFileHandle('status.json');
+        const file = await fh.getFile();
+        status = JSON.parse(await file.text());
+      } catch(e) { return; } // not yet created
+
+      updateSteps(status);
+
+      if(status.state === 'done') {
+        clearInterval(pollTimer);
+        // Read result.json
+        try {
+          const fh = await folderHandle.getFileHandle('result.json');
+          const file = await fh.getFile();
+          const result = JSON.parse(await file.text());
+          showResult(result);
+        } catch(e) {
+          showResult({error:'Resultado não encontrado: '+e.message});
+        }
+      } else if(status.state === 'error') {
+        clearInterval(pollTimer);
+        showResult({error: status.message || 'Erro desconhecido'});
+      }
+    } catch(e){}
+  }, 3000);
+}
+
+function updateSteps(s) {
+  const msg = (s.message||'').toLowerCase();
+  document.getElementById('proc-msg').textContent = s.message || 'Processando...';
+  let idx = 0;
+  if(msg.includes('instagram')||msg.includes('perfil'))   idx=0;
+  if(msg.includes('colet')||msg.includes('seguidor'))      idx=1;
+  if(msg.includes('anali')||msg.includes('print'))         idx=2;
+  if(msg.includes('mont')||msg.includes('anál')||msg.includes('texto')) idx=3;
+  if(msg.includes('canva')||msg.includes('document'))      idx=4;
+  ['s1','s2','s3','s4','s5'].forEach((id,i)=>{
+    const el=document.getElementById(id), dot=el.querySelector('.sd');
+    el.className='si';
+    if(i<idx){el.classList.add('done');dot.textContent='✓';}
+    else if(i===idx){el.classList.add('act');dot.textContent='●';}
+    else{dot.textContent=i+1;}
+  });
+}
+
+function showResult(r) {
+  show('result-view');
+  if(r.error) {
+    document.getElementById('res-icon').textContent='❌';
+    document.getElementById('res-t').textContent='Algo deu errado';
+    document.getElementById('res-s').textContent='Veja o detalhe abaixo:';
+    document.getElementById('err-box').innerHTML=`<div class="err-box">${r.error}</div>`;
+  } else {
+    document.getElementById('res-s').textContent=`Carta de Diagnóstico de ${r.escola||''} gerada!`;
+    const a=document.getElementById('canva-link');
+    a.href=r.canva_url||r.edit_url||'#';
+    a.style.display='inline-flex';
+  }
+}
+
+function reset() {
+  ['bio','destaques','alunos'].forEach(clr);
+  ['f-diretor','f-escola','f-instagram'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('btn-go').disabled=false;
+  document.getElementById('err-box').innerHTML='';
+  document.getElementById('canva-link').style.display='none';
+  show('form-view');
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function show(id) {
+  ['setup-view','form-view','proc-view','result-view'].forEach(v=>{
+    document.getElementById(v).style.display = v===id ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
