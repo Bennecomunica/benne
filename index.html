@@ -16,7 +16,6 @@
 
   .wrap{max-width:700px;margin:32px auto;padding:0 20px 80px}
 
-  /* Setup step */
   #setup-view{text-align:center;padding:60px 20px}
   .setup-icon{font-size:52px;margin-bottom:16px}
   .setup-title{font-size:22px;font-weight:700;margin-bottom:8px}
@@ -26,8 +25,11 @@
     font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
   .btn-folder:hover{background:#d44a15}
 
+  /* Setup step */
+  #setup-view{display:none}
+
   /* Form */
-  #form-view{display:none}
+  #form-view{}
   .folder-bar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e5e5e5;
     border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:13px;color:#555}
   .folder-bar span{font-weight:600;color:#111;flex:1}
@@ -133,11 +135,6 @@
 
 <!-- ② Formulário -->
 <div id="form-view" class="wrap">
-  <div class="folder-bar">
-    📁 <span id="folder-name"></span>
-    <button onclick="changeFolder()">Trocar pasta</button>
-  </div>
-
   <div class="page-title">Nova Carta de Diagnóstico</div>
   <div class="page-sub">Preencha e clique em Gerar — o diagnóstico é criado automaticamente no Canva.</div>
 
@@ -260,7 +257,14 @@ async function generate() {
   const escola    = document.getElementById('f-escola').value.trim();
   const instagram = document.getElementById('f-instagram').value.trim();
   if(!diretor||!escola||!instagram){ alert('Preencha todos os campos.'); return; }
-  if(!folderHandle){ alert('Selecione a pasta primeiro.'); return; }
+  if(!folderHandle){
+    try {
+      folderHandle = await window.showDirectoryPicker({mode:'readwrite'});
+    } catch(e) {
+      if(e.name !== 'AbortError') alert('Não foi possível acessar a pasta: ' + e.message);
+      return;
+    }
+  }
 
   const btn = document.getElementById('btn-go');
   btn.disabled = true;
