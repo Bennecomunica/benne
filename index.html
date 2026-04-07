@@ -119,32 +119,6 @@
     <div class="fg"><label>Link do Instagram</label><input type="url" id="f-instagram" placeholder="https://instagram.com/nomeescola"></div>
   </div>
 
-  <div class="card">
-    <div class="sec"><div class="sec-n">2</div><div><div class="sec-t">Prints do Perfil</div><div class="sec-s">Capturas de tela do Instagram</div></div></div>
-    <div class="ups">
-      <div class="up-item">
-        <label>📱 Bio</label>
-        <div class="uz" id="z-bio">
-          <div class="zi">📱</div><div class="zt">Bio</div><div class="zh">Clique para anexar</div>
-          <input type="file" accept="image/*" onchange="pick(this,'bio')">
-        </div>
-      </div>
-      <div class="up-item">
-        <label>⭐ Destaques</label>
-        <div class="uz" id="z-destaques">
-          <div class="zi">⭐</div><div class="zt">Highlights</div><div class="zh">Clique para anexar</div>
-          <input type="file" accept="image/*" onchange="pick(this,'destaques')">
-        </div>
-      </div>
-      <div class="up-item">
-        <label>📊 Alunos</label>
-        <div class="uz" id="z-alunos">
-          <div class="zi">📊</div><div class="zt">Nº de Alunos</div><div class="zh">Clique para anexar</div>
-          <input type="file" accept="image/*" onchange="pick(this,'alunos')">
-        </div>
-      </div>
-    </div>
-  </div>
 
   <button class="btn-submit" id="btn-go" onclick="generate()">✦  Gerar Diagnóstico</button>
 </div>
@@ -184,34 +158,6 @@
 </div>
 
 <script>
-const imgs = {bio:null,destaques:null,alunos:null};
-const icons = {bio:'📱',destaques:'⭐',alunos:'📊'};
-const names = {bio:'Bio',destaques:'Highlights',alunos:'Nº Alunos'};
-
-// ─── Image upload ────────────────────────────────────────────────────────────
-function pick(input, key) {
-  const file = input.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = e => {
-    imgs[key] = e.target.result;
-    const z = document.getElementById('z-'+key);
-    z.classList.add('ok');
-    z.innerHTML = `
-      <img src="${e.target.result}" alt="${names[key]}">
-      <div class="ok-label">✓ ${file.name}</div>
-      <button class="rm" onclick="event.stopPropagation();clr('${key}')">×</button>
-      <input type="file" accept="image/*" onchange="pick(this,'${key}')">
-    `;
-  };
-  r.readAsDataURL(file);
-}
-function clr(key) {
-  imgs[key]=null;
-  const z=document.getElementById('z-'+key);
-  z.classList.remove('ok');
-  z.innerHTML=`<div class="zi">${icons[key]}</div><div class="zt">${names[key]}</div><div class="zh">Clique para anexar</div><input type="file" accept="image/*" onchange="pick(this,'${key}')">`;
-}
-
 // ─── Submit ──────────────────────────────────────────────────────────────────
 async function generate() {
   const diretor   = document.getElementById('f-diretor').value.trim();
@@ -227,10 +173,7 @@ async function generate() {
     const response = await fetch('/api/diagnostico', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        diretor, escola, instagram,
-        images: { bio: imgs.bio||null, destaques: imgs.destaques||null, alunos: imgs.alunos||null }
-      })
+      body: JSON.stringify({ diretor, escola, instagram })
     });
 
     const reader = response.body.getReader();
@@ -319,7 +262,6 @@ function showResult(r) {
 }
 
 function reset() {
-  ['bio','destaques','alunos'].forEach(clr);
   ['f-diretor','f-escola','f-instagram'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('btn-go').disabled=false;
   document.getElementById('err-box').innerHTML='';
