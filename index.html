@@ -16,25 +16,6 @@
 
   .wrap{max-width:700px;margin:32px auto;padding:0 20px 80px}
 
-  #setup-view{text-align:center;padding:60px 20px}
-  .setup-icon{font-size:52px;margin-bottom:16px}
-  .setup-title{font-size:22px;font-weight:700;margin-bottom:8px}
-  .setup-desc{font-size:14px;color:#777;max-width:400px;margin:0 auto 28px;line-height:1.6}
-  .btn-folder{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;
-    background:#e85d26;color:#fff;border:none;border-radius:10px;font-size:15px;
-    font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
-  .btn-folder:hover{background:#d44a15}
-
-  /* Setup step */
-  #setup-view{display:none}
-
-  /* Form */
-  #form-view{}
-  .folder-bar{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e5e5e5;
-    border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:13px;color:#555}
-  .folder-bar span{font-weight:600;color:#111;flex:1}
-  .folder-bar button{font-size:12px;color:#e85d26;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif}
-
   .page-title{font-size:22px;font-weight:700;margin-bottom:4px}
   .page-sub{font-size:13px;color:#888;margin-bottom:24px}
 
@@ -119,21 +100,7 @@
   </div>
 </div>
 
-<!-- ① Setup: selecionar pasta -->
-<div id="setup-view" class="wrap">
-  <div class="setup-icon">📁</div>
-  <div class="setup-title">Conectar pasta de trabalho</div>
-  <div class="setup-desc">
-    Selecione a pasta onde o Claude salva os arquivos da Benne.<br>
-    Geralmente é a pasta <strong>outputs</strong> dentro da pasta conectada ao Cowork.
-  </div>
-  <button class="btn-folder" onclick="selectFolder()">
-    📂 &nbsp;Selecionar pasta
-  </button>
-  <p style="margin-top:16px;font-size:12px;color:#bbb">Só precisa fazer isso uma vez por sessão</p>
-</div>
-
-<!-- ② Formulário -->
+<!-- ① Formulário -->
 <div id="form-view" class="wrap">
   <div class="page-title">Nova Carta de Diagnóstico</div>
   <div class="page-sub">Preencha e clique em Gerar — o diagnóstico é criado automaticamente no Canva.</div>
@@ -174,15 +141,15 @@
     </div>
   </div>
 
-  <button class="btn-submit" id="btn-go" onclick="generate()">✦ &nbsp;Gerar Diagnóstico</button>
+  <button class="btn-submit" id="btn-go" onclick="generate()">✦  Gerar Diagnóstico</button>
 </div>
 
-<!-- ③ Processando -->
+<!-- ② Processando -->
 <div id="proc-view" class="wrap">
   <div class="proc-card">
     <div class="spin"></div>
     <div class="proc-t">Gerando seu diagnóstico...</div>
-    <div class="proc-s" id="proc-msg">Aguardando início...</div>
+    <div class="proc-s" id="proc-msg">Iniciando análise...</div>
     <div class="steps">
       <div class="si" id="s1"><div class="sd">1</div><span>Visitar perfil no Instagram</span></div>
       <div class="si" id="s2"><div class="sd">2</div><span>Coletar dados e seguidores</span></div>
@@ -193,7 +160,7 @@
   </div>
 </div>
 
-<!-- ④ Resultado -->
+<!-- ③ Resultado -->
 <div id="result-view" class="wrap">
   <div class="res-card">
     <div class="res-icon" id="res-icon">🎉</div>
@@ -210,22 +177,9 @@
 </div>
 
 <script>
-let folderHandle = null;
 const imgs = {bio:null,destaques:null,alunos:null};
 const icons = {bio:'📱',destaques:'⭐',alunos:'📊'};
 const names = {bio:'Bio',destaques:'Highlights',alunos:'Nº Alunos'};
-
-// ─── Folder selection ───────────────────────────────────────────────────────
-async function selectFolder() {
-  try {
-    folderHandle = await window.showDirectoryPicker({mode:'readwrite'});
-    document.getElementById('folder-name').textContent = folderHandle.name;
-    show('form-view');
-  } catch(e) {
-    if(e.name !== 'AbortError') alert('Não foi possível acessar a pasta: ' + e.message);
-  }
-}
-function changeFolder() { folderHandle = null; show('setup-view'); }
 
 // ─── Image upload ────────────────────────────────────────────────────────────
 function pick(input, key) {
@@ -257,83 +211,61 @@ async function generate() {
   const escola    = document.getElementById('f-escola').value.trim();
   const instagram = document.getElementById('f-instagram').value.trim();
   if(!diretor||!escola||!instagram){ alert('Preencha todos os campos.'); return; }
-  if(!folderHandle){
-    try {
-      folderHandle = await window.showDirectoryPicker({mode:'readwrite'});
-    } catch(e) {
-      if(e.name !== 'AbortError') alert('Não foi possível acessar a pasta: ' + e.message);
-      return;
-    }
-  }
 
   const btn = document.getElementById('btn-go');
   btn.disabled = true;
-
-  // Write pending.json
-  const payload = { diretor, escola, instagram,
-    images:{ bio:imgs.bio||null, destaques:imgs.destaques||null, alunos:imgs.alunos||null }
-  };
-  try {
-    // Clear old result/status
-    for(const f of ['result.json','status.json']) {
-      try { await (await folderHandle.getFileHandle(f)).remove(); } catch(e){}
-    }
-    const fh = await folderHandle.getFileHandle('pending.json', {create:true});
-    const w  = await fh.createWritable();
-    await w.write(JSON.stringify(payload, null, 2));
-    await w.close();
-  } catch(e) {
-    alert('Erro ao salvar arquivo: '+e.message);
-    btn.disabled=false; return;
-  }
-
   show('proc-view');
-  pollStatus();
-}
 
-// ─── Polling ──────────────────────────────────────────────────────────────────
-let pollTimer = null;
-async function pollStatus() {
-  if(pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(async () => {
-    try {
-      // Read status.json
-      let status = null;
-      try {
-        const fh = await folderHandle.getFileHandle('status.json');
-        const file = await fh.getFile();
-        status = JSON.parse(await file.text());
-      } catch(e) { return; } // not yet created
+  try {
+    const response = await fetch('/api/diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        diretor, escola, instagram,
+        images: { bio: imgs.bio||null, destaques: imgs.destaques||null, alunos: imgs.alunos||null }
+      })
+    });
 
-      updateSteps(status);
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
 
-      if(status.state === 'done') {
-        clearInterval(pollTimer);
-        // Read result.json
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
         try {
-          const fh = await folderHandle.getFileHandle('result.json');
-          const file = await fh.getFile();
-          const result = JSON.parse(await file.text());
-          showResult(result);
-        } catch(e) {
-          showResult({error:'Resultado não encontrado: '+e.message});
-        }
-      } else if(status.state === 'error') {
-        clearInterval(pollTimer);
-        showResult({error: status.message || 'Erro desconhecido'});
+          const event = JSON.parse(line.slice(6));
+          if (event.type === 'status') {
+            updateSteps(event.message);
+          } else if (event.type === 'done') {
+            showResult(event.result);
+          } else if (event.type === 'error') {
+            showResult({ error: event.message });
+          }
+        } catch(e) {}
       }
-    } catch(e){}
-  }, 3000);
+    }
+  } catch(e) {
+    showResult({ error: 'Não foi possível conectar ao servidor. Verifique se o servidor está rodando (npm start).' });
+  }
 }
 
-function updateSteps(s) {
-  const msg = (s.message||'').toLowerCase();
-  document.getElementById('proc-msg').textContent = s.message || 'Processando...';
+// ─── Update steps ────────────────────────────────────────────────────────────
+function updateSteps(message) {
+  const msg = (message||'').toLowerCase();
+  document.getElementById('proc-msg').textContent = message || 'Processando...';
   let idx = 0;
   if(msg.includes('instagram')||msg.includes('perfil'))   idx=0;
   if(msg.includes('colet')||msg.includes('seguidor'))      idx=1;
   if(msg.includes('anali')||msg.includes('print'))         idx=2;
-  if(msg.includes('mont')||msg.includes('anál')||msg.includes('texto')) idx=3;
+  if(msg.includes('mont')||msg.includes('anál')||msg.includes('texto')||msg.includes('recomend')) idx=3;
   if(msg.includes('canva')||msg.includes('document'))      idx=4;
   ['s1','s2','s3','s4','s5'].forEach((id,i)=>{
     const el=document.getElementById(id), dot=el.querySelector('.sd');
@@ -353,9 +285,11 @@ function showResult(r) {
     document.getElementById('err-box').innerHTML=`<div class="err-box">${r.error}</div>`;
   } else {
     document.getElementById('res-s').textContent=`Carta de Diagnóstico de ${r.escola||''} gerada!`;
-    const a=document.getElementById('canva-link');
-    a.href=r.canva_url||r.edit_url||'#';
-    a.style.display='inline-flex';
+    if(r.canva_url || r.edit_url) {
+      const a=document.getElementById('canva-link');
+      a.href=r.canva_url||r.edit_url;
+      a.style.display='inline-flex';
+    }
   }
 }
 
@@ -368,9 +302,8 @@ function reset() {
   show('form-view');
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 function show(id) {
-  ['setup-view','form-view','proc-view','result-view'].forEach(v=>{
+  ['form-view','proc-view','result-view'].forEach(v=>{
     document.getElementById(v).style.display = v===id ? 'block' : 'none';
   });
 }

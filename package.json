@@ -1,0 +1,11 @@
+{
+  "name": "benne-diagnostico",
+  "version": "1.0.0",
+  "description": "Benne — Diagnóstico Instagram",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
