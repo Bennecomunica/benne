@@ -82,10 +82,18 @@ Retorne SOMENTE um JSON neste formato (sem markdown, sem crases, apenas o JSON p
   sendEvent('status', { message: 'Iniciando análise...' });
 
   try {
-    const claude = spawn('claude', ['--print', '--dangerously-skip-permissions', '-p', prompt], {
-      shell: true,
-      env: { ...process.env }
+    // Write prompt to temp file to avoid shell escaping issues on Windows
+    const tmpFile = path.join(__dirname, '_tmp_prompt.txt');
+    fs.writeFileSync(tmpFile, prompt, 'utf-8');
+
+    const claude = spawn('claude', ['--print', '--dangerously-skip-permissions'], {
+      env: { ...process.env },
+      stdio: ['pipe', 'pipe', 'pipe']
     });
+
+    // Pipe the prompt via stdin
+    const promptStream = fs.createReadStream(tmpFile);
+    promptStream.pipe(claude.stdin);
 
     let output = '';
 
@@ -113,6 +121,8 @@ Retorne SOMENTE um JSON neste formato (sem markdown, sem crases, apenas o JSON p
     });
 
     claude.on('close', (code) => {
+      // Clean up temp file
+      try { fs.unlinkSync(tmpFile); } catch(e) {}
       console.log(`\n   Claude finalizado (código: ${code})`);
 
       // Try to extract JSON from output
