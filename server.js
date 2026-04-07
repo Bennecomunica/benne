@@ -21,6 +21,7 @@ app.post('/api/diagnostico', async (req, res) => {
 # Diagnóstico Instagram — Carta de Diagnóstico Benne
 
 Você é um analista de marketing digital especializado em Instagram para escolas.
+Você está rodando em modo automatizado (não-interativo). NÃO peça confirmação, aprovação ou revisão em nenhum momento. Execute tudo automaticamente até o fim.
 
 ## Dados do formulário
 - **Diretor(a):** ${diretor}
@@ -28,8 +29,6 @@ Você é um analista de marketing digital especializado em Instagram para escola
 - **Instagram:** ${instagram}
 
 ## Instruções
-
-Execute as etapas abaixo e retorne o resultado APENAS como um JSON válido, sem texto adicional antes ou depois.
 
 ### Etapa 1 — Visitar o perfil no Instagram
 - Acesse ${instagram}
@@ -40,7 +39,7 @@ Execute as etapas abaixo e retorne o resultado APENAS como um JSON válido, sem 
 - Identifique: tipo de conteúdo predominante, engajamento estimado
 
 ### Etapa 3 — Montar análise e recomendações
-Com base nos dados coletados, monte a Carta de Diagnóstico com:
+Monte a Carta de Diagnóstico com:
 1. Resumo do Perfil
 2. Pontos Fortes (mínimo 3)
 3. Pontos de Melhoria (mínimo 3)
@@ -48,22 +47,17 @@ Com base nos dados coletados, monte a Carta de Diagnóstico com:
 5. Nota Geral de 0 a 10
 
 ### Etapa 4 — Criar documento no Canva
-Use a integração MCP do Canva para criar o documento:
+Use a integração MCP do Canva para criar o documento.
+IMPORTANTE: Gere o design diretamente SEM pedir revisão ou aprovação do outline. NÃO use request-outline-review. Vá direto para generate-design ou generate-design-structured e depois commit.
 1. Gere um design no Canva com o conteúdo da Carta de Diagnóstico
 2. Use o estilo visual da Benne: cor principal #e85d26 (laranja), fundo escuro #111
 3. Inclua o nome da escola "${escola}" e do diretor(a) "${diretor}"
-4. Obtenha o link de edição do design
+4. Faça o commit do design imediatamente
+5. Obtenha o link de edição do design
 
-### Resposta Final
-Retorne SOMENTE um JSON neste formato (sem markdown, sem crases, apenas o JSON puro):
-{
-  "escola": "${escola}",
-  "diretor": "${diretor}",
-  "canva_url": "URL do design no Canva",
-  "edit_url": "URL de edição do design no Canva",
-  "nota": 7.5,
-  "resumo": "Breve resumo do diagnóstico em 2-3 frases"
-}
+### RESPOSTA FINAL OBRIGATÓRIA
+Depois de criar o design no Canva, sua ÚLTIMA mensagem deve ser SOMENTE este JSON (sem markdown, sem crases, sem texto extra):
+{"escola":"${escola}","diretor":"${diretor}","canva_url":"URL_DO_DESIGN","edit_url":"URL_DE_EDICAO","nota":0,"resumo":"resumo aqui"}
 `;
 
   console.log(`\n📥 Novo diagnóstico: ${escola} (${diretor})`);
