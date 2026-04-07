@@ -39,18 +39,23 @@ while true; do
     # Atualiza status: visitando Instagram
     write_status "running" "Visitando perfil no Instagram..."
 
-    # Monta o prompt com o conteúdo do pending.json
-    PENDING_CONTENT=$(cat "$WATCH_DIR/pending.json")
-    PROMPT_CONTENT=$(cat "$PROMPT_FILE")
-
-    # Substitui o placeholder no prompt
-    FULL_PROMPT=$(echo "$PROMPT_CONTENT" | sed "s|{{PENDING_JSON}}|$PENDING_CONTENT|g")
-    FULL_PROMPT=$(echo "$FULL_PROMPT" | sed "s|{{OUTPUT_DIR}}|$WATCH_DIR|g")
+    # Monta o prompt em arquivo temporário
+    TEMP_PROMPT="$WATCH_DIR/_prompt_tmp.md"
+    {
+      cat "$PROMPT_FILE"
+      echo ""
+      echo "## Dados do formulário (pending.json)"
+      echo '```json'
+      cat "$WATCH_DIR/pending.json"
+      echo '```'
+      echo ""
+      echo "## Pasta de saída: $WATCH_DIR"
+    } > "$TEMP_PROMPT"
 
     echo "🚀 Executando Claude Code..."
 
-    # Executa o Claude Code
-    claude --print "$FULL_PROMPT" 2>&1 | while IFS= read -r line; do
+    # Executa o Claude Code passando o prompt via stdin
+    cat "$TEMP_PROMPT" | claude --print 2>&1 | while IFS= read -r line; do
       echo "   $line"
 
       # Atualiza status baseado na saída do Claude
@@ -77,8 +82,8 @@ while true; do
       echo "❌ Erro: result.json não foi gerado"
     fi
 
-    # Remove o pending.json para não processar de novo
-    rm -f "$WATCH_DIR/pending.json"
+    # Remove arquivos temporários
+    rm -f "$WATCH_DIR/pending.json" "$WATCH_DIR/_prompt_tmp.md"
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
