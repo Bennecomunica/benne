@@ -30,34 +30,72 @@ Você está rodando em modo automatizado (não-interativo). NÃO peça confirma�
 
 ## Instruções
 
-### Etapa 1 — Visitar o perfil no Instagram
+### Etapa 1 — Visitar e coletar dados reais do perfil
 - Acesse ${instagram}
-- Colete: nome do perfil, bio, número de seguidores, número de publicações
+- Colete TODOS os dados visíveis: nome do perfil, bio completa, número de seguidores, seguindo, publicações
+- Leia o texto da bio palavra por palavra
+- Conte quantos destaques existem e quais são os nomes
+- Veja os últimos 9-12 posts: tipos (reels, carrossel, imagem única), data aproximada, curtidas, comentários
 
-### Etapa 2 — Analisar o perfil
-- Analise os últimos posts do perfil
-- Identifique: tipo de conteúdo predominante, engajamento estimado
+### Etapa 2 — Análise estratégica REAL de marketing (NÃO REPLIQUE, ANALISE)
+ATENÇÃO: Você NÃO está resumindo o que viu. Você está AVALIANDO como um consultor de marketing escolar.
 
-### Etapa 3 — Montar análise e recomendações (COM LIMITES DE CARACTERES)
-IMPORTANTE: Cada texto gerado DEVE respeitar o limite exato de caracteres indicado abaixo. Isso é fundamental para não quebrar o layout do Canva. Conte os caracteres antes de inserir. Se necessário, resuma ou expanda para caber exatamente.
+Para cada item abaixo, dê um PARECER ESTRATÉGICO baseado nos dados reais coletados:
 
-Monte a Carta de Diagnóstico com:
+**PONTOS POSITIVOS — Analise de verdade o que a escola faz bem:**
+- A bio comunica claramente a proposta de valor? Tem CTA? Tem link funcional?
+- Os destaques estão organizados e fazem sentido para captação de alunos?
+- A frequência de postagem é consistente?
+- O tipo de conteúdo gera engajamento real (curtidas + comentários vs seguidores)?
+- Há diversidade de formatos (reels, carrossel, stories)?
+- O visual é profissional e coerente?
+- Há conteúdo que gera prova social (depoimentos, eventos, conquistas)?
+
+Só liste como "ponto positivo" o que REALMENTE for bom. Se a escola tem poucos seguidores mas posta com consistência, o ponto positivo é a consistência, não os seguidores.
+
+**PONTOS DE MELHORIA — Seja específico e prático:**
+Para cada problema encontrado, dê:
+1. O que está errado (com dados concretos)
+2. Por que isso prejudica a escola
+3. O que fazer para corrigir (ação prática)
+
+Exemplos de problemas reais para avaliar:
+- @username longo ou difícil de encontrar → sugerir alternativa
+- Bio sem CTA ou sem link → sugerir texto novo
+- Link da bio quebrado ou sem agregador → sugerir Linktree
+- Destaques desorganizados, com capas inconsistentes ou duplicados → sugerir reorganização
+- Posts com baixo engajamento → analisar por quê (horário? formato? legenda?)
+- Falta de reels (formato que mais alcança no Instagram) → sugerir frequência
+- Sem conteúdo de bastidores/humanização → explicar importância
+- Sem conteúdo focado em conversão (matrículas, visitas) → sugerir tipos de posts
+
+NÃO invente problemas que não existem. NÃO elogie o que não merece elogio. Seja honesto e útil.
+
+### Etapa 3 — Montar os textos da Carta (COM LIMITES DE CARACTERES)
+IMPORTANTE: Agora transforme a análise estratégica da Etapa 2 em textos que cabem no layout do Canva. Cada texto DEVE respeitar o limite de caracteres indicado. Conte os caracteres antes de inserir.
 
 **Campo 1 — "O que a escola faz bem:" (4 itens, cada um com no máximo 80 caracteres)**
-Exemplo de formato:
+Baseie-se APENAS nos pontos positivos REAIS que você identificou na Etapa 2.
+Cada item deve ser um fato concreto observado, não um elogio genérico.
+Exemplo de formato e tamanho:
 - "Conta verificada no Instagram (✓ blue check);" (47 chars)
 - "Bio clara com 35 anos de história e diferenciais bem descritos;" (64 chars)
 - "7 destaques organizados — incluindo Tour Virtual, diferencial competitivo;" (75 chars)
 - "390 posts com consistência de conteúdo." (40 chars)
 
 **Campo 2 — "4 ajustes práticos para melhorar hoje o perfil da escola:" (4 itens)**
+Baseie-se APENAS nos problemas REAIS que você identificou na Etapa 2.
+Cada ajuste deve ser uma recomendação específica e acionável, com dados reais.
+NÃO use recomendações genéricas como "melhore o engajamento". Diga EXATAMENTE o que mudar.
 Cada ajuste deve ter:
-- Título curto (máximo 60 caracteres)
-- Sugestão/detalhe (máximo 150 caracteres)
+- Título curto descrevendo o problema (máximo 60 caracteres)
+- Sugestão concreta de como resolver (máximo 150 caracteres)
 Formato: "1: [Título]\\nSugestão: [detalhe]"
 
 **Campo 3 — "Resumo das Prioridades" (máximo 380 caracteres)**
-Um parágrafo único resumindo os pontos principais e as ações prioritárias.
+Um parágrafo que resume os achados mais importantes e as 3 ações prioritárias.
+Comece com o nome da escola e dados reais (seguidores, posts). Termine com as ações.
+NÃO seja genérico. Use números e fatos da análise.
 
 ### Etapa 4 — Duplicar e editar o template no Canva
 IMPORTANTE: Siga estes passos EXATAMENTE nesta ordem:
