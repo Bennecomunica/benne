@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ECA Digital e Escolas – Informativo Benne Comunica</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --benne-tan:    #C4A07A;
+      --benne-dark:   #0D0B09;
+      --benne-brown:  #7B5E42;
+      --cream:        #F5EBD9;
+      --cream-dark:   #EDE0CA;
+      --text-dark:    #2A1F13;
+      --text-mid:     #5C4433;
+      --text-light:   #8B7560;
+      --accent-gold:  #B8894E;
+      --white:        #FDFAF5;
+    }
+
+    body {
+      background: var(--cream);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ──────────────────────────────────────── */
+    .header {
+      background: var(--benne-dark);
+      padding: 40px 48px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    /* Logo SVG */
+    .logo-wrap { flex-shrink: 0; }
+
+    /* Tag temática */
+    .header-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--benne-tan);
+      border: 1px solid rgba(196,160,122,.35);
+      padding: 6px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      background: var(--benne-dark);
+      padding: 0 48px 56px;
+      border-bottom: 4px solid var(--benne-tan);
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--benne-tan);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.18;
+      color: #FDF9F3;
+      max-width: 720px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--benne-tan);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.6);
+      max-width: 620px;
+    }
+
+    .hero-law {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      background: rgba(196,160,122,.12);
+      border-left: 3px solid var(--benne-tan);
+      padding: 10px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: var(--benne-tan);
+      font-weight: 500;
+    }
+
+    /* ── WRAPPER ─────────────────────────────────────── */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 32px 80px;
+    }
+
+    /* ── LEAD CARD ───────────────────────────────────── */
+    .lead-card {
+      background: var(--benne-dark);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .lead-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--benne-tan);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .lead-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FDF9F3;
+      margin-bottom: 10px;
+    }
+
+    .lead-card p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.65);
+    }
+
+    .lead-card strong { color: var(--benne-tan); font-weight: 600; }
+
+    /* ── SECTION TITLES ──────────────────────────────── */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      margin-top: 52px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 28px;
+      background: var(--benne-tan);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* ── GRID DE CARDS ───────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px 22px;
+      border: 1.5px solid var(--cream-dark);
+      transition: box-shadow .2s;
+    }
+
+    .card-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-mid);
+    }
+
+    /* ── ALERTA VERMELHO ─────────────────────────────── */
+    .alert-block {
+      background: #3D1F1F;
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 8px;
+    }
+
+    .alert-block .alert-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .alert-block .alert-header span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #F08080;
+    }
+
+    .alert-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alert-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.75);
+    }
+
+    .alert-list li::before {
+      content: '✕';
+      color: #F08080;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── BOAS PRÁTICAS REDES ─────────────────────────── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+    .tip-card {
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .tip-card.do  { background: #1E2D1E; border: 1.5px solid rgba(100,180,100,.25); }
+    .tip-card.dont{ background: #2D1E1E; border: 1.5px solid rgba(220,100,100,.2); }
+
+    .tip-card .tip-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tip-card.do .tip-label   { color: #7DC87D; }
+    .tip-card.dont .tip-label { color: #E07070; }
+
+    .tip-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tip-card ul li {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(255,255,255,.7);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .tip-card.do   ul li::before { content: '✓'; color: #7DC87D; font-weight: 700; flex-shrink:0; }
+    .tip-card.dont ul li::before { content: '✗'; color: #E07070; font-weight: 700; flex-shrink:0; }
+
+    /* ── PASSOS AÇÃO ─────────────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 18px;
+      align-items: start;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 22px 24px;
+      border: 1.5px solid var(--cream-dark);
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--benne-tan);
+      color: var(--benne-dark);
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-mid);
+    }
+
+    /* ── DESTAQUE DICA ───────────────────────────────── */
+    .highlight-box {
+      background: linear-gradient(135deg, var(--benne-dark) 0%, #1E1510 100%);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-top: 48px;
+      border: 1.5px solid rgba(196,160,122,.25);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .highlight-box .hl-icon {
+      font-size: 30px;
+    }
+
+    .highlight-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--benne-tan);
+      margin-bottom: 8px;
+    }
+
+    .highlight-box p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.65);
+    }
+
+    /* ── RODAPÉ ──────────────────────────────────────── */
+    .footer {
+      background: var(--benne-dark);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(196,160,122,.3);
+    }
+
+    .footer-source {
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      line-height: 1.5;
+    }
+
+    .footer-source strong {
+      color: rgba(255,255,255,.6);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .footer-right {
+      font-size: 11px;
+      color: rgba(255,255,255,.3);
+      text-align: right;
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────── */
+    .divider {
+      height: 1.5px;
+      background: var(--cream-dark);
+      margin: 8px 0 0;
+      border: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .header, .hero, .footer { padding-left: 24px; padding-right: 24px; }
+      .content { padding: 40px 20px 60px; }
+      .lead-card { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .footer { flex-direction: column; gap: 20px; }
+      .footer-right { text-align: left; }
+      .highlight-box { grid-template-columns: 1fr; }
+    }
+
+    /* ── REGRAS DE IMPRESSÃO / PDF ───────────────────── */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      /* Impede que o header e hero sejam cortados */
+      .header, .hero { break-inside: avoid; page-break-inside: avoid; }
+
+      /* O header deve permanecer junto ao hero */
+      .header { break-after: avoid; page-break-after: avoid; }
+
+      /* Seções de título nunca ficam sozinhas no final de página */
+      .section-title {
+        break-after: avoid;
+        page-break-after: avoid;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Todos os blocos de conteúdo: nunca cortados no meio */
+      .lead-card,
+      .card,
+      .cards-grid,
+      .alert-block,
+      .alert-list li,
+      .tips-grid,
+      .tip-card,
+      .step,
+      .highlight-box {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Grids de cards: mantém o grupo junto sempre que possível */
+      .cards-grid, .tips-grid, .steps {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Rodapé nunca fica cortado */
+      .footer {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        break-before: avoid;
+      }
+
+      /* Seções principais: iniciam em nova página quando necessário */
+      .content > .section-title {
+        break-before: auto;
+      }
+
+      /* Garante que o bloco "O que mudou" não seja cortado */
+      .content > .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Orphans e widows para parágrafos */
+      p { orphans: 3; widows: 3; }
+
+      /* Destaque final sempre junto */
+      .highlight-box {
+        break-before: auto;
+        margin-top: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <!-- Benne Comunica Logo SVG -->
+    <svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ícone "b" estilizado -->
+      <g>
+        <!-- Metade esquerda do ícone -->
+        <path d="M0 8 Q0 0 8 0 L16 0 L16 52 L8 52 Q0 52 0 44 Z" fill="#C4A07A"/>
+        <!-- Metade direita curva (semicírculo) -->
+        <path d="M16 12 Q36 12 36 32 Q36 52 16 52 Z" fill="#C4A07A"/>
+        <!-- Recorte interno (a linha preta vertical cria o efeito) -->
+        <rect x="15" y="0" width="3" height="52" fill="#0D0B09"/>
+      </g>
+      <!-- Texto "benne" -->
+      <text x="46" y="37" font-family="'Inter', sans-serif" font-size="30" font-weight="800" fill="#C4A07A" letter-spacing="-0.5">benne</text>
+      <!-- Texto "comunica" -->
+      <text x="90" y="50" font-family="'Inter', sans-serif" font-size="11" font-weight="400" fill="#8B7560" letter-spacing="3">comunica</text>
+    </svg>
+  </div>
+  <div class="header-tag">Informativo · Direito Digital</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="max-width:860px;">
+    <span class="hero-label">ECA Digital · Lei 15.211/2025</span>
+    <h1>A imagem do aluno nas redes sociais exige <em>mais cuidado,</em> não pânico</h1>
+    <p class="hero-sub">
+      O ECA Digital entrou em vigor em 17 de março de 2026. Entenda o que mudou, o que continua igual e o que sua escola precisa fazer agora — de forma simples e direta.
+    </p>
+    <div class="hero-law">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Lei 15.211/2025 · Regulamentada por 3 decretos presidenciais em março de 2026
+    </div>
+  </div>
+</section>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main class="content">
+
+  <!-- LEAD -->
+  <div class="lead-card">
+    <div class="lead-icon">📌</div>
+    <div>
+      <h2>O que é o ECA Digital?</h2>
+      <p>
+        O ECA Digital <strong>não substitui o ECA de 1990 — ele complementa</strong>, adaptando a proteção de crianças e adolescentes à realidade digital. Para as escolas, a mensagem é clara: o que mudou <strong>não foi a permissão de usar a imagem do aluno, mas o nível de responsabilidade e vigilância</strong> exigido. Escolas podem continuar usando. Só que agora com muito mais cuidado.
+      </p>
+    </div>
+  </div>
+
+  <!-- O QUE JÁ EXISTIA -->
+  <div class="section-title"><h2>A autorização sempre foi obrigatória</h2></div>
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">📋</span>
+      <h3>LGPD (2020)</h3>
+      <p>Dados de crianças e adolescentes já eram classificados como <strong>sensíveis</strong> e exigiam consentimento específico dos pais ou responsável legal.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">👶</span>
+      <h3>ECA (1990)</h3>
+      <p>O direito à imagem de crianças e adolescentes já estava protegido há mais de 30 anos no Estatuto da Criança e do Adolescente.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚖️</span>
+      <h3>Código Civil & Constituição</h3>
+      <p>O Art. 20 do CC veda exposição sem autorização. A Constituição (Art. 5º, X) protege imagem e intimidade como direitos fundamentais.</p>
+    </div>
+  </div>
+
+  <!-- O QUE MUDOU -->
+  <div class="section-title" style="margin-top:40px;"><h2>O que mudou com o ECA Digital</h2></div>
+  <div class="card" style="border-left: 3px solid var(--benne-tan);">
+    <span class="card-icon">🔍</span>
+    <h3>O consentimento agora precisa ser específico e detalhado</h3>
+    <p style="margin-bottom:14px;">Acabou aquela autorização genérica de início de ano, assinada no meio de dez formulários. O novo padrão exige:</p>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:12px; margin-top:4px;">
+      <div style="background:var(--cream-dark); border-radius:10px; padding:14px 16px;">
+        <div style="font-size:18px; margin-bottom:6px;">📍</div>
+        <div style="font-size:13px; font-weight:700; color:var(--text-dark); margin-bottom:4px;">Onde</div>
+        <div style="font-size:12.5px; color:var(--text-mid);">Especificar o canal (Instagram, site, comunicados etc.)</div>
+      </div>
+      <div style="background:var(--cream-dark); border-radius:10px; padding:14px 16px;">
+        <div style="font-size:18px; margin-bottom:6px;">🎯</div>
+        <div style="font-size:13px; font-weight:700; color:var(--text-dark); margin-bottom:4px;">Como</div>
+        <div style="font-size:12.5px; color:var(--text-mid);">Informar a finalidade de uso (institucional, publicidade etc.)</div>
+      </div>
+      <div style="background:var(--cream-dark); border-radius:10px; padding:14px 16px;">
+        <div style="font-size:18px; margin-bottom:6px;">⏰</div>
+        <div style="font-size:13px; font-weight:700; color:var(--text-dark); margin-bottom:4px;">Até quando</div>
+        <div style="font-size:12.5px; color:var(--text-mid);">Definir o prazo de vigência da autorização</div>
+      </div>
+      <div style="background:var(--cream-dark); border-radius:10px; padding:14px 16px;">
+        <div style="font-size:18px; margin-bottom:6px;">↩️</div>
+        <div style="font-size:13px; font-weight:700; color:var(--text-dark); margin-bottom:4px;">Revogação</div>
+        <div style="font-size:12.5px; color:var(--text-mid);">Prever a possibilidade de revogar o consentimento</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE NÃO PODE -->
+  <div class="section-title"><h2>O que a escola não pode fazer</h2></div>
+  <div class="alert-block">
+    <div class="alert-header">
+      <span>🚫 Práticas proibidas — para a escola e para colaboradores</span>
+    </div>
+    <ul class="alert-list">
+      <li>Expor aluno em situação de vulnerabilidade (chorando, sendo humilhado, situações constrangedoras)</li>
+      <li>Divulgar dados pessoais ou localização em tempo real do aluno</li>
+      <li>Compartilhar dados pessoais sensíveis ou informações pedagógicas em canais abertos</li>
+      <li>Permitir que funcionários (professores, coordenadores, monitores) publiquem fotos de alunos em perfis pessoais — mesmo com boa intenção</li>
+      <li>Usar dados de alunos em qualquer formato sem autorização específica dos responsáveis</li>
+    </ul>
+  </div>
+
+  <!-- REDES SOCIAIS -->
+  <div class="section-title"><h2>Boas práticas nas redes sociais</h2></div>
+  <div class="tips-grid">
+    <div class="tip-card do">
+      <div class="tip-label">✔ Faça isso</div>
+      <ul>
+        <li>Priorize sempre fotos coletivas</li>
+        <li>Use imagens de banco de imagem ou geradas por IA para publicidade</li>
+        <li>Treine toda a equipe sobre o que pode e o que não pode</li>
+        <li>Adote o princípio da mínima exposição</li>
+        <li>Revise e atualize o que já foi publicado</li>
+      </ul>
+    </div>
+    <div class="tip-card dont">
+      <div class="tip-label">✗ Evite isso</div>
+      <ul>
+        <li>Identificar alunos individualmente nas postagens</li>
+        <li>Marcar, nomear ou geolocalizar o aluno</li>
+        <li>Usar foto de aluno em tráfego pago ou publicidade agressiva</li>
+        <li>Confiar em autorizações genéricas de início de ano</li>
+        <li>Permitir publicações não rastreadas por membros da equipe</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- O QUE FAZER AGORA -->
+  <div class="section-title"><h2>O que fazer agora — 4 ações práticas</h2></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>Atualize os termos e contratos</h3>
+        <p>Reescreva a autorização de uso de imagem com finalidade, canal, prazo e possibilidade de revogação. A autorização genérica não é mais suficiente.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>Forme e treine sua equipe</h3>
+        <p>Todo colaborador que tem contato com alunos precisa saber o que pode e o que não pode fazer com a imagem deles — inclusive no perfil pessoal.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>Revise suas redes sociais</h3>
+        <p>Faça uma auditoria do que já foi publicado. Conteúdos antigos podem precisar de ajuste ou remoção para estar em conformidade com a nova lei.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h3>Adote o princípio da mínima exposição</h3>
+        <p>Se não é necessário mostrar o rosto do aluno, não mostre. Para publicidade, prefira banco de imagens ou imagens geradas por inteligência artificial.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESTAQUE FINAL -->
+  <div class="highlight-box">
+    <div class="hl-icon">💡</div>
+    <div>
+      <h3>A mensagem central do ECA Digital</h3>
+      <p>
+        O ECA Digital não veio para impedir a escola de se comunicar. Veio para exigir que essa comunicação seja feita com <strong style="color:var(--benne-tan);">responsabilidade, transparência e respeito ao aluno como sujeito de direitos</strong>. A escola que entender isso rápido vai se adaptar sem traumas. A que resistir, vai se adaptar pela força da fiscalização — ou pela dor de um incidente.
+      </p>
+      <p style="margin-top:12px; font-size:12.5px; color:rgba(255,255,255,.4);">
+        Fonte: Gustavo Peixoto Nunes · Advogado | Direito Educacional · Portal Lawletter, 2026
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- RODAPÉ -->
+<footer class="footer">
+  <div class="footer-left">
+    <svg width="32" height="32" viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 8 Q0 0 8 0 L16 0 L16 52 L8 52 Q0 52 0 44 Z" fill="#C4A07A"/>
+      <path d="M16 12 Q36 12 36 32 Q36 52 16 52 Z" fill="#C4A07A"/>
+      <rect x="15" y="0" width="3" height="52" fill="#0D0B09"/>
+    </svg>
+    <div class="footer-divider"></div>
+    <div class="footer-source">
+      <strong>Informativo elaborado por</strong>
+      Benne Comunica · marketing@bennecomunica.com.br
+    </div>
+  </div>
+  <div class="footer-right">
+    Baseado em: Lei 15.211/2025 (ECA Digital)<br/>
+    Vigor: 17 de março de 2026
+  </div>
+</footer>
+
+</body>
+</html>
