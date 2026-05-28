@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Colégio Feliz Idade — Educação de qualidade é FelizIdade</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<script>
+window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": ["#1F8A5B", "#0F2C4F", "#FFC83D", "#F26A4F"],
+  "displayFont": "Outfit",
+  "bodyFont": "DM Sans",
+  "burstShape": "star"
+}/*EDITMODE-END*/;
+</script>
+
+<style>
+:root{
+  --green:  #1F8A5B;
+  --green-2:#176F48;
+  --green-soft:#E5F4EB;
+  --navy:   #0F2C4F;
+  --navy-2: #16406F;
+  --blue-soft:#E4EDF8;
+  --yellow: #FFC83D;
+  --yellow-soft:#FFF3CE;
+  --coral:  #F26A4F;
+  --coral-soft:#FCE3DB;
+  --cream:  #FFF8EE;
+  --paper:  #FFFFFF;
+  --ink:    #14202E;
+  --ink-2:  #4A5567;
+  --ink-3:  #8A93A1;
+  --line:   #E8E3D6;
+  --line-2: #D6D1C2;
+
+  --f-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --f-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 0 rgba(20,32,46,.04), 0 8px 24px -8px rgba(20,32,46,.08);
+  --shadow-pop:  0 4px 12px rgba(20,32,46,.08), 0 20px 40px -16px rgba(20,32,46,.18);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{ width: min(1240px, 92vw); margin: 0 auto; }
+.wrap-wide{ width: min(1380px, 94vw); margin: 0 auto; }
+
+h1,h2,h3,h4{
+  font-family: var(--f-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+  color: var(--ink);
+}
+h1{ font-size: clamp(40px, 5.4vw, 72px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; }
+h2{ font-size: clamp(32px, 3.6vw, 48px); font-weight: 700; letter-spacing: -0.025em;}
+h3{ font-size: clamp(18px, 1.4vw, 21px); font-weight: 700;}
+
+.eyebrow{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+  padding: 7px 14px;
+  background: var(--green-soft);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.eyebrow.eyb-yellow{ color:#7A5500; background: var(--yellow-soft);}
+.eyebrow.eyb-coral{ color:#A2331C; background: var(--coral-soft);}
+.eyebrow.eyb-blue{ color:#0F2C4F; background: var(--blue-soft);}
+.eyebrow.eyb-light{ color:#fff; background: rgba(255,255,255,.14); }
+
+.btn{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 24px; border-radius: 14px;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  border: 0; cursor: pointer; font-family: inherit;
+  transition: transform .15s ease, box-shadow .2s ease, background .15s ease;
+}
+.btn-primary{
+  background: var(--green); color: #fff;
+  box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 6px 18px rgba(31,138,91,.30);
+}
+.btn-primary:hover{ background: var(--green-2); transform: translateY(-1px); }
+.btn-coral{
+  background: var(--coral); color: #fff;
+  box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 6px 18px rgba(242,106,79,.30);
+}
+.btn-coral:hover{ background: #DA5A41; transform: translateY(-1px); }
+.btn-ghost{
+  background: #fff; color: var(--ink);
+  border: 1.5px solid var(--line-2);
+}
+.btn-ghost:hover{ border-color: var(--ink); }
+.btn-light{
+  background: #fff; color: var(--navy);
+}
+.btn-light:hover{ background: #f5f5f5; }
+.btn .ic{ width: 18px; height: 18px; }
+
+/* ── Dotted scribble line that meanders down the page ── */
+.scribble{
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  color: var(--green);
+  opacity: .42;
+}
+.scribble svg{ width: 100%; height: 100%; display: block; }
+
+/* ── NAV ── */
+.nav{
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-row{ display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+
+.brand{ display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-mark{
+  width: 42px; height: 42px;
+  position: relative;
+  flex-shrink: 0;
+}
+.brand-mark svg{ width: 100%; height: 100%; }
+.brand-logo{
+  height: 56px; width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+.brand-wordmark{
+  height: 36px; width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+.brand-logo.footer{
+  height: 72px;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 14px;
+}
+.brand-text{ line-height: 1.05; }
+.brand-text .b1{
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.brand-text .b1 em{ font-style: normal; color: var(--green); }
+.brand-text .b2{
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.nav-links{ display: flex; gap: 30px; align-items: center; }
+.nav-links a{
+  font-weight: 500; font-size: 14.5px; text-decoration: none; color: var(--ink);
+  position: relative; padding: 4px 0;
+}
+.nav-links a::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 2px; background: var(--green); border-radius: 2px;
+  transform: scaleX(0); transform-origin: left; transition: transform .2s ease;
+}
+.nav-links a:hover::after{ transform: scaleX(1); }
+
+.nav-cta{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  background: var(--green); color: #fff;
+  text-decoration: none; border-radius: 12px;
+  font-weight: 600; font-size: 14px;
+  box-shadow: 0 4px 12px rgba(31,138,91,.30);
+}
+.nav-cta:hover{ background: var(--green-2); }
+.nav-cta .ic{ width: 16px; height: 16px; }
+
+@media (max-width: 880px){
+  .nav-links{ display: none; }
+}
+
+/* ── HERO ── */
+.hero{
+  position: relative;
+  padding: 64px 0 96px;
+  overflow: hidden;
+}
+.hero .scribble.s-hero{
+  top: 0; right: -4%; width: 36%; height: 110%;
+  color: var(--coral); opacity: .35;
+}
+.hero-grid{
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: center;
+  position: relative; z-index: 2;
+}
+@media (max-width: 980px){
+  .hero-grid{ grid-template-columns: 1fr; gap: 40px; }
+}
+
+.hero h1{ margin: 22px 0 0; }
+.hero h1 .accent{ color: var(--green); }
+.hero h1 .accent-blue{ color: var(--navy); }
+.hero-sub{
+  margin-top: 22px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 540px;
+}
+.hero-actions{ display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+
+.hero-fam{
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px dashed var(--line-2);
+}
+.fam-avas{ display: flex; }
+.fam-avas .av{
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid #fff;
+  margin-left: -10px;
+  display: grid; place-items: center;
+  font-family: var(--f-display); font-weight: 700; font-size: 13px; color: #fff;
+}
+.fam-avas .av:first-child{ margin-left: 0; }
+.fam-avas .av.a1{ background: var(--green); }
+.fam-avas .av.a2{ background: var(--yellow); color: var(--ink); }
+.fam-avas .av.a3{ background: var(--coral); }
+.fam-avas .av.a4{ background: var(--navy); }
+.hero-fam .ftxt{ font-size: 14px; color: var(--ink-2); line-height: 1.4; }
+.hero-fam .ftxt b{ color: var(--ink); font-weight: 600; }
+
+/* hero photo composition — squircle on burst */
+.hero-art{
+  position: relative;
+  aspect-ratio: 1 / 1.05;
+  width: 100%;
+}
+.hero-art .burst{
+  position: absolute;
+  inset: -2% -6% 0 -6%;
+  z-index: 1;
+  color: var(--yellow);
+}
+.hero-art .burst svg{ width: 100%; height: 100%; }
+.hero-art .ph{
+  position: absolute;
+  inset: 8% 8% 8% 8%;
+  z-index: 2;
+  border-radius: 38% 38% 38% 38% / 32% 32% 32% 32%;
+  background: var(--blue-soft);
+  display: grid; place-items: center;
+  overflow: hidden;
+  border: 2px dashed rgba(15,44,79,.25);
+}
+.hero-art .ph video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-art .ph.has-media{ border: 0; background: var(--navy); }
+.ph-label{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-body);
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--navy);
+  background: rgba(255,255,255,.85);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,44,79,.12);
+}
+.ph-label .ic{ width: 14px; height: 14px; opacity: .7; }
+
+/* floating chips around hero photo */
+.chip{
+  position: absolute;
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: var(--shadow-pop);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px;
+  z-index: 3;
+  border: 1px solid var(--line);
+}
+.chip .cic{
+  width: 32px; height: 32px; border-radius: 10px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.chip .cic.green{ background: var(--green-soft); color: var(--green); }
+.chip .cic.coral{ background: var(--coral-soft); color: var(--coral); }
+.chip .cic.navy{ background: var(--blue-soft); color: var(--navy); }
+.chip .ctx b{ display: block; font-family: var(--f-display); font-weight: 700; font-size: 15px; color: var(--ink); letter-spacing: -0.01em; }
+.chip .ctx span{ display: block; color: var(--ink-2); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; font-weight: 500; }
+
+.hero-art .c1{ top: 4%; left: -8%; }
+.hero-art .c2{ top: 38%; right: -10%; }
+.hero-art .c3{ bottom: 6%; left: -4%; }
+
+/* ── SOBRE ── */
+.sobre{
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.sobre .scribble.s-sobre{
+  top: 10%; left: -6%; width: 30%; height: 90%;
+  color: var(--green); opacity: .3;
+}
+.sobre-grid{
+  display: grid; grid-template-columns: .9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 110px 0;
+  position: relative; z-index: 2;
+}
+@media (max-width: 980px){
+  .sobre-grid{ grid-template-columns: 1fr; gap: 40px; padding: 80px 0; }
+}
+
+/* sobre photo */
+.sobre-art{
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+.sobre-art .burst{
+  position: absolute; inset: -4% -8% -4% -8%; z-index: 1;
+  color: var(--green);
+}
+.sobre-art .ph{
+  position: absolute; inset: 8% 6%; z-index: 2;
+  border-radius: 28px;
+  background: var(--blue-soft);
+  border: 2px dashed rgba(15,44,79,.25);
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.sobre-art .ph img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.sobre-art .ph.has-media{ border: 0; background: var(--navy); }
+.sobre-art .chip{ top: -3%; right: -8%; }
+
+.sobre h2{ margin: 22px 0 0; }
+.sobre-lead{
+  margin-top: 20px;
+  font-size: 17px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  max-width: 540px;
+}
+.sobre-quote{
+  margin-top: 32px;
+  padding-left: 22px;
+  border-left: 3px solid var(--coral);
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  max-width: 520px;
+}
+.sobre-quote .src{
+  display: block; margin-top: 10px;
+  font-family: var(--f-body); font-weight: 500; font-size: 13px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+}
+
+/* ── SECTION HEADER UTILITY ── */
+.section{ padding: 110px 0; position: relative; }
+.section-head{ text-align: center; max-width: 720px; margin: 0 auto 56px; }
+.section-head h2{ margin-top: 18px; }
+.section-head p{ margin: 18px auto 0; color: var(--ink-2); font-size: 17px; max-width: 580px; }
+.section-head .eyebrow{ margin: 0 auto; }
+
+/* ── DIFERENCIAIS ── */
+.diff{ position: relative; overflow: hidden; }
+.diff .scribble.s-diff{
+  top: 8%; right: -8%; width: 32%; height: 70%;
+  color: var(--navy); opacity: .25;
+}
+.diff-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  position: relative; z-index: 2;
+}
+@media (max-width: 980px){ .diff-grid{ grid-template-columns: repeat(2, 1fr);} }
+@media (max-width: 620px){ .diff-grid{ grid-template-columns: 1fr;} }
+
+.dcard{
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  display: flex; flex-direction: column;
+  min-height: 220px;
+}
+.dcard:hover{ transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: var(--line-2); }
+.dcard .ic-sq{
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  margin-bottom: 22px;
+  flex-shrink: 0;
+}
+.dcard.dc-green .ic-sq{ background: var(--green); color: #fff;}
+.dcard.dc-navy  .ic-sq{ background: var(--navy);  color: #fff;}
+.dcard.dc-yellow .ic-sq{ background: var(--yellow); color: var(--ink);}
+.dcard.dc-coral .ic-sq{ background: var(--coral); color: #fff;}
+.dcard h3{ margin-bottom: 10px; }
+.dcard p{ margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.6; }
+
+.dcard.featured{
+  grid-column: span 1;
+  background: var(--navy);
+  border-color: transparent;
+  color: #fff;
+}
+.dcard.featured h3, .dcard.featured p{ color: #fff; }
+.dcard.featured p{ color: rgba(255,255,255,.78); }
+.dcard.featured .ic-sq{ background: var(--yellow); color: var(--ink); }
+
+/* ── ATIVIDADES ── */
+.act{ background: var(--cream); }
+.act-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 980px){ .act-grid{ grid-template-columns: repeat(3, 1fr);} }
+@media (max-width: 680px){ .act-grid{ grid-template-columns: repeat(2, 1fr);} }
+
+.acard{
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 156px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.acard:hover{ transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.acard .ic-sq{
+  width: 38px; height: 38px; border-radius: 10px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.acard b{
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.acard span{
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.acard:nth-child(8n+1) .ic-sq{ background: var(--green-soft); color: var(--green); }
+.acard:nth-child(8n+2) .ic-sq{ background: var(--blue-soft); color: var(--navy); }
+.acard:nth-child(8n+3) .ic-sq{ background: var(--yellow-soft); color: #7A5500; }
+.acard:nth-child(8n+4) .ic-sq{ background: var(--coral-soft); color: var(--coral); }
+.acard:nth-child(8n+5) .ic-sq{ background: var(--coral-soft); color: var(--coral); }
+.acard:nth-child(8n+6) .ic-sq{ background: var(--green-soft); color: var(--green); }
+.acard:nth-child(8n+7) .ic-sq{ background: var(--blue-soft); color: var(--navy); }
+.acard:nth-child(8n+8) .ic-sq{ background: var(--yellow-soft); color: #7A5500; }
+
+/* ── GALERIA ── */
+.gal{ position: relative; overflow: hidden; }
+.gal .scribble.s-gal{
+  top: 14%; left: -4%; width: 26%; height: 80%;
+  color: var(--yellow); opacity: .5;
+}
+.gal-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 110px;
+  gap: 14px;
+  position: relative; z-index: 2;
+}
+.tile{
+  position: relative;
+  border-radius: 20px;
+  background: var(--cream);
+  border: 2px dashed var(--line-2);
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.tile img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tile.has-media{ border: 0; }
+.tile.t1{ grid-column: span 6; grid-row: span 4; background: var(--green-soft); border-color: rgba(31,138,91,.25);}
+.tile.t2{ grid-column: span 3; grid-row: span 3; background: var(--yellow-soft); border-color: rgba(255,200,61,.35);}
+.tile.t3{ grid-column: span 3; grid-row: span 3; background: var(--blue-soft); border-color: rgba(15,44,79,.22);}
+.tile.t4{ grid-column: span 3; grid-row: span 3; background: var(--coral-soft); border-color: rgba(242,106,79,.30);}
+.tile.t5{ grid-column: span 3; grid-row: span 3; background: var(--green-soft); border-color: rgba(31,138,91,.22);}
+.tile.t6{ grid-column: span 6; grid-row: span 2; background: var(--blue-soft); border-color: rgba(15,44,79,.20);}
+@media (max-width: 880px){
+  .gal-grid{ grid-auto-rows: 90px; }
+  .tile.t1{ grid-column: span 12; }
+  .tile.t2,.tile.t3,.tile.t4,.tile.t5{ grid-column: span 6;}
+  .tile.t6{ grid-column: span 12;}
+}
+
+/* ── DEPOIMENTOS ── */
+.test{
+  background: var(--navy);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.test::before{
+  content: ""; position: absolute;
+  top: -20%; right: -10%; width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,200,61,.10), transparent 60%);
+}
+.test::after{
+  content: ""; position: absolute;
+  bottom: -15%; left: -8%; width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,106,79,.10), transparent 60%);
+}
+.test .section-head h2{ color: #fff; }
+.test .section-head p{ color: rgba(255,255,255,.7); }
+.test .eyebrow{ background: rgba(255,255,255,.10); color: var(--yellow); }
+.test-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 980px){ .test-grid{ grid-template-columns: 1fr;} }
+.tcard{
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 26px;
+  color: var(--ink);
+  display: flex; flex-direction: column; gap: 16px;
+  min-height: 200px;
+}
+.tcard .qm{
+  font-family: var(--f-display);
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--coral);
+  line-height: .5;
+  margin-bottom: -10px;
+}
+.tcard .qt{
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+.tcard .who{ display: flex; align-items: center; gap: 12px; }
+.tcard .av{
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--green-soft);
+  color: var(--green);
+  display: grid; place-items: center;
+  font-family: var(--f-display); font-weight: 700; font-size: 15px;
+}
+.tcard:nth-child(2) .av{ background: var(--yellow-soft); color: #7A5500;}
+.tcard:nth-child(3) .av{ background: var(--coral-soft); color: var(--coral);}
+.tcard:nth-child(4) .av{ background: var(--blue-soft); color: var(--navy);}
+.tcard:nth-child(5) .av{ background: var(--coral-soft); color: var(--coral);}
+.tcard:nth-child(6) .av{ background: var(--yellow-soft); color: #7A5500;}
+.tcard .who b{ display: block; font-weight: 600; font-size: 14px; }
+.tcard .who span{ display: block; font-size: 12px; color: var(--ink-3); }
+
+/* ── CTA BIG ── */
+.cta-big{
+  padding: 90px 0;
+  position: relative;
+}
+.cta-block{
+  background: var(--coral);
+  border-radius: 32px;
+  padding: 64px 56px;
+  display: grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+@media (max-width: 980px){
+  .cta-block{ grid-template-columns: 1fr; padding: 48px 32px; }
+}
+.cta-block .eyebrow{ background: rgba(255,255,255,.18); color: #fff; }
+.cta-block h2{ color: #fff; margin-top: 18px; max-width: 580px; }
+.cta-block p{
+  color: rgba(255,255,255,.85);
+  font-size: 17px;
+  margin: 18px 0 28px;
+  max-width: 520px;
+  line-height: 1.55;
+}
+.cta-block .cta-art{
+  position: relative;
+  aspect-ratio: 1 / 1;
+  z-index: 2;
+}
+.cta-block .cta-art .burst{
+  position: absolute; inset: -8%; color: var(--yellow);
+}
+.cta-block .cta-art .ph{
+  position: absolute; inset: 6%;
+  border-radius: 38% 38% 38% 38% / 32% 32% 32% 32%;
+  background: #fff;
+  border: 2px dashed rgba(15,44,79,.20);
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.cta-block .cta-art .ph img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cta-block .cta-art .ph.has-media{ border: 0; }
+.cta-block .cta-art .ph .ph-label{ color: var(--navy); }
+
+/* ── FOOTER ── */
+.footer{
+  background: var(--navy);
+  color: rgba(255,255,255,.75);
+  padding: 80px 0 32px;
+}
+.foot-grid{
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 48px;
+}
+@media (max-width: 880px){ .foot-grid{ grid-template-columns: 1fr 1fr;} }
+.foot-col h4{
+  font-family: var(--f-body);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+.foot-col a, .foot-col p{
+  display: block;
+  font-size: 14.5px;
+  color: rgba(255,255,255,.82);
+  text-decoration: none;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+.foot-col a:hover{ color: var(--yellow); }
+.foot-brand .brand-text .b1{ color: #fff; }
+.foot-brand .brand-text .b1 em{ color: var(--yellow); }
+.foot-brand .brand-text .b2{ color: rgba(255,255,255,.45); }
+.foot-brand p{ color: rgba(255,255,255,.62); max-width: 280px; margin-top: 14px; }
+.foot-bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  flex-wrap: wrap; gap: 12px;
+}
+
+/* small helpers */
+.heart-ic{ color: var(--coral); }
+
+/* ── ANIMATIONS (light) ── */
+@media (prefers-reduced-motion: no-preference){
+  /* Scroll reveal */
+  .reveal{
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+  .reveal.d1{ transition-delay: .08s; }
+  .reveal.d2{ transition-delay: .16s; }
+  .reveal.d3{ transition-delay: .24s; }
+  .reveal.d4{ transition-delay: .32s; }
+  .reveal.d5{ transition-delay: .40s; }
+  .reveal.d6{ transition-delay: .48s; }
+
+  /* Bursts: very slow rotation behind photos */
+  .hero-art .burst svg,
+  .sobre-art .burst svg,
+  .cta-art .burst svg{
+    transform-origin: 50% 50%;
+    animation: spin-slow 64s linear infinite;
+  }
+  .sobre-art .burst svg{ animation-duration: 80s; animation-direction: reverse; }
+  .cta-art .burst svg{ animation-duration: 72s; }
+  @keyframes spin-slow{ to { transform: rotate(360deg); } }
+
+  /* Floating chips — gentle bob, staggered */
+  .hero-art .chip{ animation: bob 6s ease-in-out infinite; }
+  .hero-art .c1{ animation-delay: 0s; }
+  .hero-art .c2{ animation-delay: -2s; animation-duration: 7s; }
+  .hero-art .c3{ animation-delay: -4s; animation-duration: 6.5s; }
+  .sobre-art .chip{ animation: bob 7s ease-in-out infinite; animation-delay: -1.5s; }
+  @keyframes bob{
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  /* Dotted scribble — draw on enter */
+  .scribble svg path{
+    stroke-dasharray: 2 12;
+    stroke-dashoffset: 600;
+    transition: stroke-dashoffset 2.2s cubic-bezier(.4,.0,.2,1);
+  }
+  .scribble.in svg path{ stroke-dashoffset: 0; }
+
+  /* Button micro */
+  .btn{ transition: transform .15s ease, box-shadow .2s ease, background .15s ease; }
+  .btn:active{ transform: translateY(1px) scale(.99); }
+
+  /* Brand logo subtle tilt on hover */
+  .brand-logo{ transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .brand:hover .brand-logo{ transform: rotate(-3deg) scale(1.04); }
+
+  /* Photo container subtle float on hero */
+  .hero-art .ph{ animation: float-photo 9s ease-in-out infinite; }
+  @keyframes float-photo{
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" data-screen-label="Nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top" aria-label="Colégio Feliz Idade">
+      <img class="brand-logo" src="assets/logo.png" alt="Colégio Feliz Idade"/>
+      <img class="brand-wordmark" src="assets/wordmark.png" alt="FelizIdade"/>
+    </a>
+    <div class="nav-links">
+      <a href="#sobre">A Escola</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#atividades">Atividades</a>
+      <a href="#galeria">Nossos Dias</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a class="nav-cta" href="https://api.whatsapp.com/send?phone=5515991782531" target="_blank" rel="noopener">
+      <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.4 5.6.4 12c0 2 .5 4 1.6 5.7L0 24l6.5-1.7c1.7 1 3.6 1.4 5.5 1.4 6.4 0 11.6-5.1 11.6-11.5C23.6 5.6 18.4.5 12 .5Zm5.2 13.9c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4-.2.3-1 .9-1 2.2 0 1.3.9 2.5 1 2.7.1.2 1.9 2.9 4.6 4.1.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.6-.3Z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="top" class="hero" data-screen-label="Hero">
+  <!-- dotted scribble accent -->
+  <div class="scribble s-hero reveal" aria-hidden="true">
+    <svg viewBox="0 0 200 600" preserveAspectRatio="none">
+      <path d="M 180 20 C 100 80, 220 140, 140 220 S 100 360, 170 440 S 90 540, 160 590"
+            fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12"/>
+    </svg>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow reveal">Matrículas abertas · 2027</span>
+      <h1 class="reveal d1">
+        Aprender é <span class="accent">brincar</span>.
+        Crescer é <span class="accent-blue">ser amado</span>.
+      </h1>
+      <p class="hero-sub reveal d2">
+        Uma escola que acredita e vive o amor como grande diferencial.
+        Educação Infantil e Fundamental em Sorocaba, onde cada criança é protagonista
+        da própria história — com afeto, ludicidade e muita natureza.
+      </p>
+
+      <div class="hero-actions reveal d3">
+        <a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5515991782531" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.4 5.6.4 12c0 2 .5 4 1.6 5.7L0 24l6.5-1.7c1.7 1 3.6 1.4 5.5 1.4 6.4 0 11.6-5.1 11.6-11.5C23.6 5.6 18.4.5 12 .5Zm5.2 13.9c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4-.2.3-1 .9-1 2.2 0 1.3.9 2.5 1 2.7.1.2 1.9 2.9 4.6 4.1.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.6-.3Z"/></svg>
+          Agendar visita pelo WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#diferenciais">Conheça nossa proposta</a>
+      </div>
+
+      <div class="hero-fam reveal d4">
+        <div class="fam-avas" aria-hidden="true">
+          <div class="av a1">A</div>
+          <div class="av a2">M</div>
+          <div class="av a3">L</div>
+          <div class="av a4">+</div>
+        </div>
+        <div class="ftxt"><b>+200 famílias</b> já chamam a FelizIdade de "lar".<br/>Venha conhecer a nossa.</div>
+      </div>
+    </div>
+
+    <div class="hero-art reveal d2" aria-hidden="true">
+      <!-- yellow burst behind photo -->
+      <div class="burst">
+        <svg viewBox="0 0 500 500">
+          <path fill="currentColor" d="M250 10 L300 80 L390 50 L380 145 L470 165 L410 240 L470 320 L380 340 L390 435 L300 405 L250 480 L200 405 L110 435 L120 340 L30 320 L90 240 L30 165 L120 145 L110 50 L200 80 Z"/>
+        </svg>
+      </div>
+
+      <div class="ph has-media">
+        <video src="assets/hero.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo: crianças no parque" style="border-color: rgb(29, 109, 202); margin: 0px; border-style: solid; border-width: 0px; padding: 0px; height: 1200px"></video>
+      </div>
+
+      <!-- floating chips -->
+      <div class="chip c1">
+        <div class="cic green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <div class="ctx"><b>+15 atividades</b><span>no currículo</span></div>
+      </div>
+
+      <div class="chip c2">
+        <div class="cic coral">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.5-9.5-9C1 9 2.5 5 6.5 5 9 5 10.5 6.5 12 9c1.5-2.5 3-4 5.5-4 4 0 5.5 4 4 7-2 4.5-9.5 9-9.5 9z"/></svg>
+        </div>
+        <div class="ctx"><b>Sem telas</b><span>híbrido vivencial</span></div>
+      </div>
+
+      <div class="chip c3">
+        <div class="cic navy">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-7h6v7"/></svg>
+        </div>
+        <div class="ctx"><b>Infantil + Fund.</b><span>Sorocaba · SP</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOBRE ── -->
+<section id="sobre" class="sobre" data-screen-label="Sobre">
+  <div class="scribble s-sobre" aria-hidden="true">
+    <svg viewBox="0 0 200 600" preserveAspectRatio="none">
+      <path d="M 30 30 C 110 100, 10 200, 80 280 S 170 400, 60 500 S 140 570, 50 590"
+            fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12"/>
+    </svg>
+  </div>
+
+  <div class="wrap sobre-grid">
+    <div class="sobre-art reveal">
+      <div class="burst">
+        <svg viewBox="0 0 500 600">
+          <path fill="currentColor" d="M250 20 C 360 30, 470 100, 480 230 C 490 360, 410 510, 280 580 C 150 600, 30 510, 20 360 C 10 200, 100 60, 250 20 Z"/>
+        </svg>
+      </div>
+      <div class="ph has-media">
+        <img src="assets/sobre.png" alt="Crianças em sala de aula"/>
+      </div>
+      <div class="chip">
+        <div class="cic coral">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.5-9.5-9C1 9 2.5 5 6.5 5 9 5 10.5 6.5 12 9c1.5-2.5 3-4 5.5-4 4 0 5.5 4 4 7-2 4.5-9.5 9-9.5 9z"/></svg>
+        </div>
+        <div class="ctx"><b>Desde 2010</b><span>educando com afeto</span></div>
+      </div>
+    </div>
+
+    <div>
+      <span class="eyebrow eyb-yellow reveal">Quem somos</span>
+      <h2 class="reveal d1">Educação de qualidade <span style="color:var(--green)">é FelizIdade</span>.</h2>
+      <p class="sobre-lead reveal d2">
+        Acreditamos no <strong>amor</strong> como grande diferencial: cada criança é vista, ouvida
+        e cuidada em todas as dimensões do seu desenvolvimento. Uma escola que vive a
+        ludicidade no dia a dia e acolhe famílias como parte da nossa comunidade.
+      </p>
+      <p class="sobre-lead reveal d3">
+        Aqui plantamos vínculos, autonomia, pensamento crítico e um olhar investigativo
+        sobre o mundo — sempre respeitando o ritmo e a individualidade dos pequenos.
+      </p>
+      <div class="sobre-quote reveal d4">
+        Uma escola que acredita e vive o amor como grande diferencial.
+        <span class="src">— Nossa proposta pedagógica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIFERENCIAIS ── -->
+<section id="diferenciais" class="section diff" data-screen-label="Diferenciais">
+  <div class="scribble s-diff" aria-hidden="true">
+    <svg viewBox="0 0 200 400" preserveAspectRatio="none">
+      <path d="M 180 20 C 80 80, 200 160, 120 240 S 60 340, 160 390"
+            fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12"/>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow reveal">Nossos diferenciais</span><h2 class="reveal d1">Seis pilares que <span style="color:var(--green)">sustentam</span> cada dia aqui.</h2>
+      <p>Uma proposta pedagógica construída com intencionalidade, afeto e muita escuta.</p>
+    </div>
+
+    <div class="diff-grid">
+      <article class="dcard dc-green reveal ">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg>
+        </div>
+        <h3>Aluno protagonista</h3>
+        <p>Colocamos em prática a aprendizagem ativa: experiências reais planejadas com intencionalidade, onde a criança é a protagonista da própria história.</p>
+      </article>
+
+      <article class="dcard dc-navy reveal d1">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 11l3 2 6-4" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Ensino híbrido sem telas</h3>
+        <p>Nosso "híbrido" não depende de telas — acontece por meio de vivências práticas, exploração, investigação e troca entre os alunos.</p>
+      </article>
+
+      <article class="dcard dc-yellow reveal d2">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5 5.5 1-4 4 1 5.5L12 15l-5 2.5 1-5.5L4 8l5.5-1z"/></svg>
+        </div>
+        <h3>Desenvolvimento integral</h3>
+        <p>Autonomia, pensamento crítico, colaboração e olhar investigativo — sempre respeitando o ritmo e a individualidade.</p>
+      </article>
+
+      <article class="dcard dc-green reveal d1">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4Z"/><path d="M4 4v12a4 4 0 0 0 4 4"/></svg>
+        </div>
+        <h3>Valores e caráter</h3>
+        <p>Cultivamos vida coletiva, ajuda mútua e valores que se traduzem no dia a dia — formando crianças generosas e atentas ao próximo.</p>
+      </article>
+
+      <article class="dcard dc-yellow reveal d2" style="border-radius: 18px">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12c2-5 5-5 7-5s5 0 7 5"/><path d="M5 12v6h14v-6"/><path d="M9 18v3M15 18v3"/></svg>
+        </div>
+        <h3>Alimentação saudável</h3>
+        <p>Contamos com nutricionista no time: preparo de smoothies sem açúcar, experimentação de alimentos e descobertas a cada mordida.</p>
+      </article>
+
+      <article class="dcard dc-navy reveal d3" style="border-width: 1px 1px 1px 2px; border-radius: 25px">
+        <div class="ic-sq">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-7h6v7"/></svg>
+        </div>
+        <h3>Equipe em formação contínua</h3>
+        <p>Formação, atualização e qualificação o ano todo. Inclusive em primeiros socorros e segurança — porque cuidado se aprende e se renova.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── ATIVIDADES ── -->
+<section id="atividades" class="section act" data-screen-label="Atividades" style="color: rgb(81, 170, 54); background-color: rgb(238, 255, 238)">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow eyb-coral reveal">No nosso dia a dia</span><h2 class="reveal d1">Um currículo com <span style="color:var(--coral)">muitas descobertas</span>.</h2>
+      <p>Mais de 15 vivências regulares e eventos ao longo do ano — tudo planejado com carinho para crescer pelo brincar.</p>
+    </div>
+
+    <div class="act-grid">
+      <div class="acard reveal ">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M5 19l7-14 7 14M9 14h6"/></svg>
+        </div>
+        <b>Taekwondo</b>
+        <span>Coordenação, equilíbrio, autocontrole e empatia.</span>
+      </div>
+
+      <div class="acard reveal d1">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a16 16 0 0 1 0 20M12 2a16 16 0 0 0 0 20"/></svg>
+        </div>
+        <b>English Class</b>
+        <span>Inglês desde a Educação Infantil, com vivências.</span>
+      </div>
+
+      <div class="acard reveal d2">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <b>Música</b>
+        <span>Percepção sonora, expressão e cultura.</span>
+      </div>
+
+      <div class="acard reveal d3">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><circle cx="12" cy="5" r="2.5"/><path d="M6 22l2-7 4-2 4 2 2 7M8 11l4 2 4-2"/></svg>
+        </div>
+        <b>Educação Física</b>
+        <span>Movimento, jogos e celebração do corpo.</span>
+      </div>
+
+      <div class="acard reveal ">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2Z"/><path d="M4 19a2 2 0 0 1 2-2h12"/></svg>
+        </div>
+        <b>Devocional</b>
+        <span>Reflexão e valores integrados ao cotidiano.</span>
+      </div>
+
+      <div class="acard reveal d1">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M3 21l9-16 9 16Z"/><path d="M8 21v-4M16 21v-4"/></svg>
+        </div>
+        <b>Acampadentro</b>
+        <span>Acampamento dentro da escola, com aventura.</span>
+      </div>
+
+      <div class="acard reveal d2">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M4 20h16M6 20V8l6-4 6 4v12"/><path d="M10 20v-5h4v5"/></svg>
+        </div>
+        <b>Feira de Artes</b>
+        <span>Evento cultural anual com as criações.</span>
+      </div>
+
+      <div class="acard reveal d3">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M3 7l9-4 9 4-9 4Z"/><path d="M3 11l9 4 9-4M3 15l9 4 9-4" style="stroke: rgb(255, 255, 255)"/></svg>
+        </div>
+        <b>Visitas pedagógicas</b>
+        <span>Zoológico, museus e o mundo lá fora.</span>
+      </div>
+
+      <div class="acard reveal ">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><circle cx="12" cy="12" r="7"/><path d="M12 9c2 0 3 2 3 4M9 12c0-2 1-3 3-3"/></svg>
+        </div>
+        <b>Cozinha &amp; nutrição</b>
+        <span>Receitas saudáveis com nutricionista.</span>
+      </div>
+
+      <div class="acard reveal d1">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+        </div>
+        <b>Semana do Trânsito</b>
+        <span>Cidadania e cuidado uns com os outros.</span>
+      </div>
+
+      <div class="acard reveal d2">
+        <div class="ic-sq" style="background-color: rgb(0, 151, 66)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M8 21V11M16 21V11M8 11a4 4 0 0 1 8 0"/><circle cx="12" cy="5" r="2"/></svg>
+        </div>
+        <b>Dia dos Avós</b>
+        <span>Afeto que atravessa gerações.</span>
+      </div>
+
+      <div class="acard reveal d3">
+        <div class="ic-sq" style="background-color: rgb(28, 85, 158)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke: rgb(255, 255, 255)"><path d="M12 3l2.6 5.6 6 .6-4.5 4.2 1.3 6L12 16.6 6.6 19.4l1.3-6L3.4 9.2l6-.6Z"/></svg>
+        </div>
+        <b>Dia da Criança</b>
+        <span>A festa para celebrar quem é a alma da escola.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIA ── -->
+<section id="galeria" class="section gal" data-screen-label="Galeria">
+  <div class="scribble s-gal" aria-hidden="true">
+    <svg viewBox="0 0 200 600" preserveAspectRatio="none">
+      <path d="M 30 30 C 110 100, 10 200, 80 280 S 170 400, 60 500 S 140 570, 50 590"
+            fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 12"/>
+    </svg>
+  </div>
+
+  <div class="wrap-wide">
+    <div class="section-head"><span class="eyebrow eyb-yellow reveal" style="color: rgb(77, 153, 112); background-color: rgb(233, 255, 216)">Nossos dias felizes</span><h2 class="reveal d1">Pedaços do <span style="color: rgb(31, 91, 159)">dia a dia</span> por aqui.</h2>
+      <p>Registramos os momentos felizes do cotidiano — porque a memória dos pequenos é o que constrói os grandes.</p>
+    </div>
+
+    <div class="gal-grid">
+      <div class="tile t1 has-media reveal">
+        <img src="assets/gal-patio.png" alt="Aluno no pátio entre as árvores"/>
+      </div>
+      <div class="tile t2 has-media reveal d1">
+        <img src="assets/gal-danca.png" alt="Turma de dança com uniforme azul e amarelo"/>
+      </div>
+      <div class="tile t3 has-media reveal d2">
+        <img src="assets/gal-natureza.png" alt="Aluno observando um ramo de alecrim"/>
+      </div>
+      <div class="tile t4 has-media reveal d3">
+        <img src="assets/gal-devocional.png" alt="Aluno em momento de devocional"/>
+      </div>
+      <div class="tile t5 has-media reveal d2">
+        <img src="assets/gal-cozinha.png" alt="Aluna sorrindo segurando uma banana"/>
+      </div>
+      <div class="tile t6 has-media reveal d1">
+        <img src="assets/gal-formatura.png" alt="Turma de formatura sorrindo no pátio"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEPOIMENTOS ── -->
+<section class="section test" data-screen-label="Depoimentos">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow reveal">Famílias FelizIdade</span><h2 class="reveal d1">O que contam por aí sobre a gente.</h2><p class="reveal d2">Depoimentos reais de famílias e amigos da escola.</p>
+    </div>
+
+    <div class="test-grid">
+      <article class="tcard reveal ">
+        <div class="qm">"</div>
+        <p class="qt">Super recomendo!</p>
+        <div class="who">
+          <div class="av">A</div>
+          <div><b>@alessandrasenfuegos</b><span>Família FelizIdade</span></div>
+        </div>
+      </article>
+
+      <article class="tcard reveal d1">
+        <div class="qm">"</div>
+        <p class="qt">Eu também recomendo — e em 2024 estamos juntos mais uma vez.</p>
+        <div class="who">
+          <div class="av">V</div>
+          <div><b>@vivianeprezenca</b><span>Família FelizIdade</span></div>
+        </div>
+      </article>
+
+      <article class="tcard reveal d2">
+        <div class="qm">"</div>
+        <p class="qt">Escola recomendadíssima!</p>
+        <div class="who">
+          <div class="av">R</div>
+          <div><b>@rodolfo.figueredo</b><span>Família FelizIdade</span></div>
+        </div>
+      </article>
+
+      <article class="tcard reveal ">
+        <div class="qm">"</div>
+        <p class="qt">Como é bom poder contar com vocês.</p>
+        <div class="who">
+          <div class="av">L</div>
+          <div><b>@ludmilasalvalaio</b><span>Família FelizIdade</span></div>
+        </div>
+      </article>
+
+      <article class="tcard reveal d1">
+        <div class="qm">"</div>
+        <p class="qt">Estava muito boa esta comida na escola com os amigos.</p>
+        <div class="who">
+          <div class="av">M</div>
+          <div><b>Maria, 5 anos</b><span>Aluna · Maternal</span></div>
+        </div>
+      </article>
+
+      <article class="tcard reveal d2">
+        <div class="qm">"</div>
+        <p class="qt">Que lindo! — sobre uma aula de Taekwondo.</p>
+        <div class="who">
+          <div class="av">I</div>
+          <div><b>@ivoninhatls</b><span>Comunidade</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-big" data-screen-label="CTA">
+  <div class="wrap">
+    <div class="cta-block reveal" style="background-color: rgb(31, 138, 91)">
+      <div>
+        <span class="eyebrow">Matrículas abertas</span>
+        <h2>Vem ser feliz com a gente. Agende uma visita.</h2>
+        <p>A melhor forma de conhecer a FelizIdade é vir tomar um café conosco e percorrer nossa escola. Marque um horário pelo WhatsApp — a gente adora receber.</p>
+        <a class="btn btn-light" href="https://api.whatsapp.com/send?phone=5515991782531" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.4 5.6.4 12c0 2 .5 4 1.6 5.7L0 24l6.5-1.7c1.7 1 3.6 1.4 5.5 1.4 6.4 0 11.6-5.1 11.6-11.5C23.6 5.6 18.4.5 12 .5Zm5.2 13.9c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.4-.2.3-1 .9-1 2.2 0 1.3.9 2.5 1 2.7.1.2 1.9 2.9 4.6 4.1.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.6-.3Z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <p style="margin-top:18px; font-size:14px; color:rgba(255,255,255,.7);">(15) 99178-2531 · segunda a sexta, das 7h às 18h</p>
+      </div>
+
+      <div class="cta-art" aria-hidden="true">
+        <div class="burst">
+          <svg viewBox="0 0 500 500">
+            <path fill="currentColor" d="M250 10 L300 80 L390 50 L380 145 L470 165 L410 240 L470 320 L380 340 L390 435 L300 405 L250 480 L200 405 L110 435 L120 340 L30 320 L90 240 L30 165 L120 145 L110 50 L200 80 Z"/>
+          </svg>
+        </div>
+        <div class="ph has-media">
+          <img src="assets/cta.png" alt="Criança sorrindo durante atividade"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER / CONTATO ── -->
+<section id="contato" class="footer" data-screen-label="Contato">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-brand">
+        <a class="brand" href="#top" style="text-decoration:none; align-items: flex-start;" aria-label="Colégio Feliz Idade">
+          <img class="brand-logo footer" src="assets/logo.png" alt="Colégio Feliz Idade"/>
+        </a>
+        <p>Educação Infantil e Fundamental. Uma escola que acredita e vive o amor como grande diferencial.</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>Visite-nos</h4>
+        <p>Rua Brasília de Almeida Michel, 63<br/>Sorocaba — SP</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" style="margin-top:8px;">Ver no Google Maps →</a>
+      </div>
+
+      <div class="foot-col">
+        <h4>Fale com a gente</h4>
+        <a href="https://api.whatsapp.com/send?phone=5515991782531" target="_blank" rel="noopener">WhatsApp · (15) 99178-2531</a>
+        <a href="https://www.instagram.com/felizidade_sorocaba/" target="_blank" rel="noopener">Instagram · @felizidade_sorocaba</a>
+        <p style="margin-top:10px;">Seg a sex · 7h às 18h</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>Navegação</h4>
+        <a href="#sobre">A escola</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#atividades">Atividades</a>
+        <a href="#galeria">Nossos dias</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div>© 2026 Colégio Feliz Idade. Educação de qualidade é FelizIdade.</div>
+      <div>Feito pela Benne Comunica</div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+
+<!-- Tweaks panel root -->
+<div id="tweaks-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+
+</body>
+</html>
