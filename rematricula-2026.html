@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rematrículas 2026 – Ensino Fundamental</title>
+<style>
+  :root {
+    --azul:    #1a3a6b;
+    --azul2:   #2563b0;
+    --amarelo: #f5a623;
+    --amarelo2:#ffd966;
+    --vermelho:#d93025;
+    --verde:   #2ca87f;
+    --cinza:   #f4f6fb;
+    --texto:   #1e2a3a;
+    --branco:  #ffffff;
+    --sombra:  0 4px 24px rgba(26,58,107,.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--cinza);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .top-bar {
+    background: linear-gradient(135deg, var(--azul) 60%, var(--azul2));
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+  }
+  .logo-circle {
+    width: 48px; height: 48px;
+    background: var(--amarelo);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 900; color: var(--azul);
+    flex-shrink: 0;
+  }
+  .top-bar h1 { font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
+  .top-bar span { font-size: .82rem; opacity: .8; display: block; }
+
+  /* ── PROGRESSO ── */
+  .progress-wrap {
+    background: #fff;
+    padding: 14px 32px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  .steps-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    max-width: 780px;
+    margin: 0 auto;
+    padding-bottom: 14px;
+  }
+  .step-dot {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; flex: 1;
+    cursor: pointer;
+  }
+  .dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #dde3ee;
+    color: #9aadca;
+    font-size: .8rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s;
+    border: 3px solid transparent;
+    position: relative;
+    z-index: 1;
+  }
+  .step-dot.active .dot   { background: var(--amarelo); color: var(--azul); border-color: var(--azul2); transform: scale(1.15); }
+  .step-dot.done .dot     { background: var(--verde); color: #fff; border-color: var(--verde); }
+  .step-dot span { font-size: .68rem; color: #8899b0; text-align: center; line-height: 1.2; white-space: nowrap; }
+  .step-dot.active span   { color: var(--azul2); font-weight: 700; }
+  .step-dot.done span     { color: var(--verde); }
+  .step-line {
+    flex: 1 1 0; height: 3px;
+    background: #dde3ee;
+    margin: 0 -2px;
+    margin-bottom: 20px;
+    transition: background .4s;
+  }
+  .step-line.done { background: var(--verde); }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 780px;
+    margin: 28px auto 60px;
+    padding: 0 16px;
+  }
+
+  /* ── ETAPA ── */
+  .etapa {
+    display: none;
+    animation: fadeIn .4s ease;
+  }
+  .etapa.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARDS GERAIS ── */
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--sombra);
+    margin-bottom: 20px;
+  }
+
+  /* ── HERO BOAS-VINDAS ── */
+  .hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul2) 100%);
+    color: #fff;
+    border-radius: 24px;
+    padding: 44px 36px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: var(--sombra);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: rgba(245,166,35,.18);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30px; left: -30px;
+    width: 140px; height: 140px;
+    background: rgba(44,168,127,.15);
+    border-radius: 50%;
+  }
+  .hero .emoji { font-size: 3.2rem; display: block; margin-bottom: 12px; }
+  .hero h2 { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
+  .hero h2 span { color: var(--amarelo); }
+  .hero p { font-size: 1.05rem; opacity: .92; max-width: 500px; margin: 0 auto 20px; line-height: 1.7; }
+  .hero .versículo {
+    background: rgba(255,255,255,.12);
+    border-left: 4px solid var(--amarelo);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-style: italic;
+    font-size: .92rem;
+    margin-top: 16px;
+    max-width: 440px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  /* ── TÍTULOS DE SEÇÃO ── */
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 1.25rem; font-weight: 800;
+    color: var(--azul);
+    margin-bottom: 20px;
+  }
+  .sec-title .icon {
+    background: var(--amarelo);
+    border-radius: 10px;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+
+  /* ── GRID REALIZAÇÕES ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .achieve-card {
+    background: var(--cinza);
+    border-radius: 14px;
+    padding: 20px;
+    border-left: 5px solid var(--azul2);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .achieve-card:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+  .achieve-card h4 {
+    font-size: .88rem; font-weight: 800;
+    color: var(--azul2); text-transform: uppercase;
+    letter-spacing: .04em; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .achieve-card ul { list-style: none; }
+  .achieve-card ul li {
+    font-size: .88rem; padding: 5px 0;
+    border-bottom: 1px solid #e0e7ef;
+    display: flex; align-items: flex-start; gap: 7px; line-height: 1.4;
+  }
+  .achieve-card ul li:last-child { border-bottom: none; }
+  .achieve-card ul li::before { content: '✓'; color: var(--verde); font-weight: 900; flex-shrink: 0; }
+
+  /* ── MÍDIA PLACEHOLDER ── */
+  .media-placeholder {
+    background: linear-gradient(135deg, #e8f0fe, #d0e6fa);
+    border: 2px dashed var(--azul2);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    color: var(--azul2);
+    margin-top: 20px;
+  }
+  .media-placeholder .media-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .media-placeholder h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .media-placeholder p  { font-size: .84rem; opacity: .75; }
+  .media-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
+  @media (max-width: 560px) { .media-row { grid-template-columns: 1fr; } }
+  .media-thumb {
+    background: rgba(37,99,176,.1);
+    border-radius: 12px;
+    padding: 18px 10px;
+    font-size: .8rem;
+    color: var(--azul);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .media-thumb:hover { background: rgba(37,99,176,.2); }
+  .media-thumb .m-icon { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+
+  /* ── NOVIDADES 2026 ── */
+  .novidades-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .novidades-grid { grid-template-columns: 1fr; } }
+
+  .nov-card {
+    border-radius: 16px;
+    padding: 22px 18px;
+    color: #fff;
+    position: relative; overflow: hidden;
+    transition: transform .2s;
+  }
+  .nov-card:hover { transform: translateY(-3px); }
+  .nov-card:nth-child(1) { background: linear-gradient(135deg, #2ca87f, #1e7a5e); }
+  .nov-card:nth-child(2) { background: linear-gradient(135deg, #2563b0, #1a3a6b); }
+  .nov-card:nth-child(3) { background: linear-gradient(135deg, #d93025, #a0201a); }
+  .nov-card:nth-child(4) { background: linear-gradient(135deg, #f5a623, #c77d0a); }
+  .nov-card .n-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .nov-card h4 { font-size: .96rem; font-weight: 800; margin-bottom: 6px; }
+  .nov-card p  { font-size: .82rem; opacity: .9; line-height: 1.5; }
+
+  /* ── PROJETOS ── */
+  .proj-list { display: flex; flex-direction: column; gap: 12px; }
+  .proj-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--cinza);
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: box-shadow .2s;
+  }
+  .proj-item:hover { box-shadow: var(--sombra); }
+  .proj-badge {
+    background: var(--azul);
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+    flex-shrink: 0;
+    text-align: center;
+    min-width: 40px;
+  }
+  .proj-item h4 { font-size: .92rem; font-weight: 700; color: var(--azul); margin-bottom: 3px; }
+  .proj-item p  { font-size: .83rem; color: #5a6a7e; }
+
+  /* ── FORMULÁRIO DADOS ── */
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block; font-size: .88rem; font-weight: 700;
+    color: var(--azul); margin-bottom: 7px;
+  }
+  .form-group label span { color: var(--vermelho); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #d0d8e8;
+    border-radius: 12px;
+    font-size: .95rem;
+    color: var(--texto);
+    background: #fff;
+    transition: border .2s, box-shadow .2s;
+    outline: none;
+    font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--azul2);
+    box-shadow: 0 0 0 4px rgba(37,99,176,.1);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+  .upload-area {
+    border: 2px dashed var(--azul2);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    background: #f0f5ff;
+    transition: background .2s;
+  }
+  .upload-area:hover { background: #ddeaff; }
+  .upload-area p { font-size: .85rem; color: var(--azul2); margin-top: 6px; }
+  .upload-area .u-icon { font-size: 2rem; }
+  #fileInput { display: none; }
+
+  /* ── PLANOS ── */
+  .planos-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  @media (max-width: 620px) { .planos-grid { grid-template-columns: 1fr; } }
+
+  .plano-card {
+    border: 3px solid #dde3ee;
+    border-radius: 20px;
+    padding: 22px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .25s;
+    position: relative;
+    background: #fff;
+  }
+  .plano-card:hover { border-color: var(--azul2); transform: translateY(-3px); box-shadow: var(--sombra); }
+  .plano-card.selected { border-color: var(--amarelo); background: #fffbee; box-shadow: 0 0 0 4px rgba(245,166,35,.2); }
+  .plano-card .badge-destaque {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--vermelho); color: #fff;
+    font-size: .72rem; font-weight: 800;
+    padding: 4px 12px; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .plano-card .plan-icon { font-size: 2.2rem; margin-bottom: 8px; }
+  .plano-card h3 { font-size: .98rem; font-weight: 800; color: var(--azul); margin-bottom: 6px; }
+  .plano-card .price { font-size: 1.5rem; font-weight: 900; color: var(--azul2); line-height: 1.1; }
+  .plano-card .price-sub { font-size: .76rem; color: #7a8aa0; margin-top: 3px; }
+  .plano-card .desc { font-size: .8rem; color: #5a6a7e; margin-top: 10px; line-height: 1.5; border-top: 1px solid #eef0f4; padding-top: 10px; }
+  .plano-card .check-mark {
+    position: absolute; top: 12px; right: 12px;
+    width: 24px; height: 24px;
+    background: var(--amarelo);
+    border-radius: 50%;
+    display: none;
+    align-items: center; justify-content: center;
+    color: var(--azul); font-size: .85rem; font-weight: 900;
+  }
+  .plano-card.selected .check-mark { display: flex; }
+
+  .materiais-info {
+    background: linear-gradient(135deg, #e8f6ee, #d4eedf);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 16px;
+  }
+  .materiais-info h4 { font-size: .95rem; font-weight: 800; color: var(--verde); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .mat-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .mat-badge {
+    background: #fff;
+    border: 2px solid var(--verde);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: .85rem;
+    color: var(--verde);
+    font-weight: 700;
+    flex: 1; min-width: 140px; text-align: center;
+  }
+  .mat-badge small { display: block; font-size: .75rem; color: #5a7a6a; font-weight: 400; margin-top: 2px; }
+
+  /* ── PAGAMENTO ── */
+  .pgto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .pgto-grid { grid-template-columns: 1fr; } }
+
+  .pgto-card {
+    border: 3px solid #dde3ee;
+    border-radius: 16px;
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: all .25s;
+    background: #fff;
+    text-align: center;
+    position: relative;
+  }
+  .pgto-card:hover { border-color: var(--azul2); transform: translateY(-2px); }
+  .pgto-card.selected { border-color: var(--azul2); background: #f0f5ff; box-shadow: 0 0 0 4px rgba(37,99,176,.12); }
+  .pgto-card .p-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+  .pgto-card h4 { font-size: .95rem; font-weight: 800; color: var(--azul); margin-bottom: 4px; }
+  .pgto-card p  { font-size: .8rem; color: #6a7a8a; line-height: 1.4; }
+  .pgto-card .check-mark {
+    position: absolute; top: 10px; right: 10px;
+    width: 22px; height: 22px;
+    background: var(--azul2); border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    color: #fff; font-size: .78rem; font-weight: 900;
+  }
+  .pgto-card.selected .check-mark { display: flex; }
+
+  .desconto-info {
+    background: linear-gradient(135deg, #fff4e0, #ffe8b0);
+    border: 2px solid var(--amarelo);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 16px;
+  }
+  .desconto-info h4 { font-size: .95rem; font-weight: 800; color: #c77d0a; margin-bottom: 10px; }
+  .desconto-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  .desconto-table th {
+    background: rgba(245,166,35,.25);
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--azul);
+    border-radius: 6px;
+  }
+  .desconto-table td { padding: 8px 10px; border-bottom: 1px solid rgba(245,166,35,.3); }
+  .desconto-table tr:last-child td { border-bottom: none; }
+  .tag-prazo {
+    display: inline-block;
+    background: var(--vermelho);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  /* ── RESUMO ── */
+  .resumo-linha {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eef0f5;
+    font-size: .9rem;
+  }
+  .resumo-linha:last-child { border-bottom: none; }
+  .resumo-linha .r-label { color: #6a7a8a; font-size: .83rem; }
+  .resumo-linha .r-valor { font-weight: 700; color: var(--azul); }
+
+  /* ── FINALIZAÇÃO ── */
+  .fim-hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul2) 100%);
+    border-radius: 24px;
+    padding: 44px 32px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .fim-hero .check-big {
+    width: 80px; height: 80px;
+    background: var(--verde);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(44,168,127,.4);
+  }
+  .fim-hero h2 { font-size: 1.9rem; font-weight: 900; margin-bottom: 10px; }
+  .fim-hero h2 span { color: var(--amarelo); }
+  .fim-hero p { font-size: 1rem; opacity: .9; max-width: 480px; margin: 0 auto 16px; line-height: 1.7; }
+  .aviso-secretaria {
+    background: rgba(255,255,255,.15);
+    border: 2px solid rgba(255,255,255,.3);
+    border-radius: 14px;
+    padding: 18px 22px;
+    font-size: .9rem;
+    max-width: 420px;
+    margin: 18px auto 0;
+    line-height: 1.6;
+  }
+  .aviso-secretaria strong { color: var(--amarelo); display: block; margin-bottom: 4px; font-size: 1rem; }
+  .versículo-fim {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--sombra);
+  }
+  .versículo-fim .v-icon { font-size: 2rem; margin-bottom: 8px; }
+  .versículo-fim blockquote { font-style: italic; color: var(--azul2); font-size: 1.05rem; line-height: 1.6; margin-bottom: 6px; }
+  .versículo-fim cite { font-size: .82rem; color: #8899b0; }
+  .contato-fim {
+    background: var(--cinza);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 16px;
+  }
+  .contato-fim .tel-icon {
+    width: 48px; height: 48px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(37,211,102,.35);
+  }
+  .contato-fim p { font-size: .9rem; color: #5a6a7e; }
+  .contato-fim strong { color: var(--azul); font-size: 1rem; }
+
+  /* ── BOTÕES ── */
+  .btn-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+  .btn {
+    padding: 14px 28px;
+    border-radius: 14px;
+    border: none;
+    font-size: .95rem; font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--azul2), var(--azul));
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37,99,176,.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,176,.45); }
+  .btn-secondary {
+    background: var(--cinza);
+    color: var(--azul);
+    border: 2px solid #d0d8e8;
+  }
+  .btn-secondary:hover { background: #e4eaf4; }
+  .btn-success {
+    background: linear-gradient(135deg, var(--verde), #1a7a5a);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(44,168,127,.35);
+    font-size: 1.05rem;
+    padding: 16px 36px;
+  }
+  .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(44,168,127,.45); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+  /* ── UTILITÁRIOS ── */
+  .text-center { text-align: center; }
+  .mt-8  { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .hidden { display: none; }
+  .tag-new {
+    display: inline-block;
+    background: var(--vermelho);
+    color: #fff;
+    font-size: .7rem; font-weight: 800;
+    padding: 2px 8px; border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* audio placeholder */
+  .audio-card {
+    background: linear-gradient(135deg, #1a3a6b, #2563b0);
+    border-radius: 16px;
+    padding: 22px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: transform .2s;
+    margin-top: 16px;
+  }
+  .audio-card:hover { transform: scale(1.01); }
+  .play-btn {
+    width: 50px; height: 50px; flex-shrink: 0;
+    background: var(--amarelo);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; color: var(--azul);
+    box-shadow: 0 4px 16px rgba(245,166,35,.4);
+  }
+  .audio-card p { font-size: .88rem; opacity: .85; margin-top: 3px; }
+  .audio-card h4 { font-size: .98rem; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="logo-circle">C</div>
+  <div>
+    <h1>Rematrículas 2026 <span style="color:var(--amarelo2)">— Ensino Fundamental</span></h1>
+    <span>Garanta a vaga do seu filho e continue essa jornada conosco ✨</span>
+  </div>
+</div>
+
+<!-- BARRA DE PROGRESSO -->
+<div class="progress-wrap">
+  <div class="steps-row" id="stepsRow">
+    <div class="step-dot active" onclick="goTo(0)" data-step="0">
+      <div class="dot">1</div>
+      <span>Boas‑vindas</span>
+    </div>
+    <div class="step-line" id="line-0"></div>
+    <div class="step-dot" onclick="goTo(1)" data-step="1">
+      <div class="dot">2</div>
+      <span>2025 em foco</span>
+    </div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step-dot" onclick="goTo(2)" data-step="2">
+      <div class="dot">3</div>
+      <span>Novidades</span>
+    </div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step-dot" onclick="goTo(3)" data-step="3">
+      <div class="dot">4</div>
+      <span>Dados</span>
+    </div>
+    <div class="step-line" id="line-3"></div>
+    <div class="step-dot" onclick="goTo(4)" data-step="4">
+      <div class="dot">5</div>
+      <span>Plano</span>
+    </div>
+    <div class="step-line" id="line-4"></div>
+    <div class="step-dot" onclick="goTo(5)" data-step="5">
+      <div class="dot">6</div>
+      <span>Pagamento</span>
+    </div>
+    <div class="step-line" id="line-5"></div>
+    <div class="step-dot" onclick="goTo(6)" data-step="6">
+      <div class="dot">7</div>
+      <span>Confirmar</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 1 – BOAS-VINDAS -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa active" id="etapa-0">
+    <div class="hero">
+      <span class="emoji">🎒</span>
+      <h2>Que alegria seguir com<br><span>seu filho nessa jornada!</span></h2>
+      <p>
+        As Rematrículas 2026 já estão abertas! Estamos muito felizes em
+        receber você aqui. Este formulário foi preparado com carinho para
+        que você conheça tudo o que preparamos e possa garantir a vaga do
+        seu filho com toda a tranquilidade.
+      </p>
+      <div class="versículo">
+        "Sim, grandes coisas fez o Senhor por nós, e por isso estamos alegres."<br>
+        <strong style="font-style:normal; color:var(--amarelo)">— Salmos 126:3</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">📋</div> Como funciona este formulário?</div>
+      <div class="proj-list">
+        <div class="proj-item">
+          <div class="proj-badge">01</div>
+          <div>
+            <h4>Conheça nossas conquistas de 2025</h4>
+            <p>Veja o que fizemos por nossos alunos — em estrutura, pedagogia e projetos.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge">02</div>
+          <div>
+            <h4>Descubra as novidades de 2026</h4>
+            <p>Saiba o que vem por aí: projetos, espaços e iniciativas pensadas para o seu filho.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge">03</div>
+          <div>
+            <h4>Preencha os dados do aluno</h4>
+            <p>Rápido e simples — só o essencial para atualizar seu cadastro.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge">04</div>
+          <div>
+            <h4>Escolha seu plano e forma de pagamento</h4>
+            <p>Temos condições especiais para quem confirmar logo. Aproveite!</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge">05</div>
+          <div>
+            <h4>Aguarde o contato da secretaria</h4>
+            <p>Após o envio, nossa equipe entrará em contato para formalizar o contrato. 💚</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="next()">Vamos começar! →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 2 – 2025 EM FOCO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-1">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">🏫</div> O que construímos juntos em 2025</div>
+      <p style="color:#5a6a7e; font-size:.9rem; margin-bottom:20px; line-height:1.6">
+        2025 foi um ano de muito trabalho, dedicação e melhorias que foram feitas pensando
+        em cada aluno e cada família. Confira tudo que realizamos!
+      </p>
+      <div class="grid-2">
+        <div class="achieve-card">
+          <h4>🔨 Estrutura e Aquisições</h4>
+          <ul>
+            <li>Manutenção e pintura das salas de aula e demais espaços</li>
+            <li>Novos materiais esportivos para os intervalos interativos</li>
+            <li>Materiais para as aulas de Educação Física</li>
+            <li>Mesa de tênis de mesa para os alunos</li>
+          </ul>
+        </div>
+        <div class="achieve-card" style="border-left-color:var(--verde)">
+          <h4 style="color:var(--verde)">📚 Área Pedagógica</h4>
+          <ul>
+            <li>Ampliação da equipe de coordenação (Exatas e Humanas)</li>
+            <li>Programa <strong>Pais em Ação</strong> — atendimento personalizado às famílias</li>
+            <li>Mais horas da Orientadora Educacional para seus filhos</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Placeholder de mídia — fotos do colégio -->
+      <div class="media-placeholder" style="margin-top:20px">
+        <div class="media-icon">📸</div>
+        <h4>Galeria de fotos das transformações</h4>
+        <p>Aqui entrarão fotos reais das melhorias realizadas no colégio em 2025</p>
+        <div class="media-row">
+          <div class="media-thumb"><span class="m-icon">🏫</span>Salas renovadas</div>
+          <div class="media-thumb"><span class="m-icon">⚽</span>Área esportiva</div>
+          <div class="media-thumb"><span class="m-icon">🎓</span>Momentos pedagógicos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">🎯</div> Projetos Educacionais em Destaque</div>
+      <div class="proj-list">
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--vermelho)">🏆</div>
+          <div>
+            <h4>Interclasses — Unidos no Esporte, Fortalecidos nos Valores</h4>
+            <p>Projeto integrado de combate ao bullying por meio do esporte e da convivência respeitosa.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--verde)">💛</div>
+          <div>
+            <h4>Olhar com Amor — Ética Cristã em Ação</h4>
+            <p>Projeto de Filosofia que desenvolve empatia, respeito e valores cristãos no dia a dia.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge" style="background:#7c3aed">🙏</div>
+          <div>
+            <h4>Aula com Propósito, Coração em Oração</h4>
+            <p>Todas as aulas começam com um momento devocional — presença, intenção e fé.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--amarelo); color:var(--azul)">🎮</div>
+          <div>
+            <h4>Brincar com Propósito</h4>
+            <p>Intervalos com intencionalidade pedagógica — aprendizado acontece também na recreação!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Placeholder de vídeo -->
+      <div class="media-placeholder" style="margin-top:20px; background:linear-gradient(135deg,#1a3a6b18,#2563b018);">
+        <div class="media-icon">🎬</div>
+        <h4>Vídeo da equipe pedagógica</h4>
+        <p>Aqui entrará um vídeo da coordenação pedagógica falando sobre os projetos de 2025</p>
+      </div>
+
+      <!-- Placeholder de áudio -->
+      <div class="audio-card">
+        <div class="play-btn">▶</div>
+        <div>
+          <h4>Mensagem da Direção para as Famílias</h4>
+          <p>Aqui entrará um áudio/mensagem gravada pela direção do colégio — ouça o que preparamos para 2026!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-primary" onclick="next()">Novidades 2026 →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 3 – NOVIDADES 2026 -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-2">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">🚀</div> Novidades que chegam em 2026 <span class="tag-new">NOVO</span></div>
+      <p style="color:#5a6a7e; font-size:.9rem; margin-bottom:20px; line-height:1.6">
+        O melhor ainda está por vir! Olha o que preparamos para o próximo ano —
+        inovação, cuidado e muito aprendizado esperando o seu filho.
+      </p>
+      <div class="novidades-grid">
+        <div class="nov-card">
+          <span class="n-icon">🌱</span>
+          <h4>Sustentabilidade e Consciência Ambiental</h4>
+          <p>Novos projetos que ensinam as crianças a cuidar do planeta de forma prática e inspiradora.</p>
+        </div>
+        <div class="nov-card">
+          <span class="n-icon">🤖</span>
+          <h4>Inteligência Artificial e Uso Consciente das Telas</h4>
+          <p>Preparando nossos alunos para o mundo digital com responsabilidade e discernimento.</p>
+        </div>
+        <div class="nov-card">
+          <span class="n-icon">🤝</span>
+          <h4>Expansão do Projeto Antibullying</h4>
+          <p>Ações contínuas ao longo de todo o ano letivo — porque um ambiente seguro não é evento, é cultura.</p>
+        </div>
+        <div class="nov-card">
+          <span class="n-icon">🏛️</span>
+          <h4>Sala Interdisciplinar para Aprendizagem Ativa</h4>
+          <p>Um novo espaço pensado para aulas dinâmicas, colaborativas e cheias de significado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">📣</div> A equipe fala para você!</div>
+      <!-- Placeholder vídeo novidades -->
+      <div class="media-placeholder">
+        <div class="media-icon">🎥</div>
+        <h4>Vídeo: "O que vem por aí em 2026"</h4>
+        <p>Aqui entrará um vídeo da equipe apresentando as novidades com entusiasmo e carinho para as famílias</p>
+      </div>
+
+      <!-- Placeholder foto sala interdisciplinar -->
+      <div class="media-placeholder" style="margin-top:14px; background:linear-gradient(135deg,#e8f6ee,#d4eedf)">
+        <div class="media-icon">🏫</div>
+        <h4>Fotos da nova Sala Interdisciplinar</h4>
+        <p>Aqui entrarão as fotos do novo espaço de aprendizagem ativa sendo preparado para 2026</p>
+      </div>
+    </div>
+
+    <div class="card" style="background:linear-gradient(135deg,#1a3a6b,#2563b0); color:#fff">
+      <div style="font-size:1.5rem; margin-bottom:12px">💬</div>
+      <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:10px">
+        "Formando mentes brilhantes e corações íntegros."
+      </h3>
+      <p style="font-size:.92rem; opacity:.9; line-height:1.7">
+        Essa frase resume tudo o que acreditamos e praticamos todos os dias.
+        Em 2026, vamos ainda mais longe juntos — com fé, dedicação e amor por cada aluno.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-primary" onclick="next()">Preencher dados →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 4 – DADOS DO ALUNO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-3">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">👤</div> Dados do Aluno</div>
+      <p style="color:#5a6a7e; font-size:.9rem; margin-bottom:22px; line-height:1.6">
+        Por favor, confirme ou atualize as informações abaixo.
+        Elas serão usadas para preparar a rematrícula com todo o cuidado. 💙
+      </p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo do aluno <span>*</span></label>
+          <input type="text" id="nomeAluno" placeholder="Ex: Pedro Henrique Souza">
+        </div>
+        <div class="form-group">
+          <label>Ano/Série atual <span>*</span></label>
+          <select id="serieAtual">
+            <option value="">Selecione...</option>
+            <option>1º ano do Ensino Fundamental</option>
+            <option>2º ano do Ensino Fundamental</option>
+            <option>3º ano do Ensino Fundamental</option>
+            <option>4º ano do Ensino Fundamental</option>
+            <option>5º ano do Ensino Fundamental</option>
+            <option>6º ano do Ensino Fundamental</option>
+            <option>7º ano do Ensino Fundamental</option>
+            <option>8º ano do Ensino Fundamental</option>
+            <option>9º ano do Ensino Fundamental</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">👨‍👩‍👧</div> Dados do Responsável</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome do responsável financeiro <span>*</span></label>
+          <input type="text" id="nomeResp" placeholder="Nome completo">
+        </div>
+        <div class="form-group">
+          <label>CPF do responsável <span>*</span></label>
+          <input type="text" id="cpfResp" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>WhatsApp / Telefone <span>*</span></label>
+          <input type="tel" id="telefone" placeholder="(15) 99999-9999">
+        </div>
+        <div class="form-group">
+          <label>E-mail <span>*</span></label>
+          <input type="email" id="email" placeholder="seu@email.com.br">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Endereço atualizado <span>*</span></label>
+        <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">📎</div> Comprovante de Endereço</div>
+      <p style="color:#5a6a7e; font-size:.88rem; margin-bottom:16px; line-height:1.5">
+        Precisamos de um comprovante de endereço atualizado (conta de luz, água ou telefone —
+        emitido nos últimos 90 dias).
+      </p>
+      <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        <div class="u-icon">📄</div>
+        <strong style="color:var(--azul2); display:block; margin:6px 0 4px">Clique para anexar o arquivo</strong>
+        <p>PDF, JPG ou PNG • Máx. 10 MB</p>
+        <p id="fileName" style="margin-top:8px; color:var(--verde); font-weight:600; display:none"></p>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" onchange="showFileName(this)">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-primary" onclick="validarDados()">Escolher plano →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 5 – PLANO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-4">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">💰</div> Tabela de Preços 2026</div>
+      <p style="color:#5a6a7e; font-size:.9rem; margin-bottom:6px; line-height:1.6">
+        O reajuste de <strong>10,5%</strong> garante valorização do nosso corpo docente, melhorias contínuas
+        e ainda mais qualidade para o seu filho. Escolha a opção que melhor se encaixa para a sua família:
+      </p>
+      <p style="color:#8899b0; font-size:.82rem; margin-bottom:22px">
+        🕐 Horário: 07h15 às 12h05
+      </p>
+
+      <div class="planos-grid">
+        <!-- Opção 1: Promoção -->
+        <div class="plano-card" onclick="selecionarPlano(this, 'promo')" style="border-top: 5px solid var(--vermelho)">
+          <div class="badge-destaque">⭐ Melhor oferta!</div>
+          <div class="check-mark">✓</div>
+          <div class="plan-icon">🎉</div>
+          <h3>Promoção<br>1ª Parcela</h3>
+          <div class="price">R$ 855,72</div>
+          <div class="price-sub">1ª parcela com 40% OFF</div>
+          <div class="desc">
+            Válido até <strong>19/09/2025</strong><br>
+            + 12x R$ 1.354,89 (5% desc.)<br>
+            a partir de janeiro
+          </div>
+        </div>
+
+        <!-- Opção 2: Parcelado padrão -->
+        <div class="plano-card" onclick="selecionarPlano(this, 'parcelado')">
+          <div class="check-mark">✓</div>
+          <div class="plan-icon">📅</div>
+          <h3>Parcelado<br>13x</h3>
+          <div class="price">R$ 1.426,20</div>
+          <div class="price-sub">por parcela (sem desconto)</div>
+          <div class="desc">
+            13 parcelas mensais<br>
+            Pagamento até o dia 5<br>
+            de cada mês
+          </div>
+        </div>
+
+        <!-- Opção 3: À vista -->
+        <div class="plano-card" onclick="selecionarPlano(this, 'avista')">
+          <div class="check-mark">✓</div>
+          <div class="plan-icon">💳</div>
+          <h3>Pagamento<br>À Vista</h3>
+          <div class="price" style="font-size:1.15rem; padding-top:4px">Consulte<br>a secretaria</div>
+          <div class="price-sub">condições especiais</div>
+          <div class="desc">
+            Entre em contato pelo<br>
+            WhatsApp ou pessoalmente<br>
+            para o melhor desconto
+          </div>
+        </div>
+      </div>
+
+      <div class="desconto-info">
+        <h4>⏰ Desconto progressivo na 1ª parcela — quanto antes, mais você economiza!</h4>
+        <table class="desconto-table">
+          <tr>
+            <th>Período</th>
+            <th>Desconto</th>
+            <th>Valor da 1ª parcela</th>
+          </tr>
+          <tr>
+            <td>Até 19/09/2025 <span class="tag-prazo">Melhor prazo!</span></td>
+            <td><strong style="color:var(--verde)">40% OFF</strong></td>
+            <td><strong>R$ 855,72</strong></td>
+          </tr>
+          <tr>
+            <td>De 21/09 a 30/09/2025</td>
+            <td><strong style="color:#c77d0a">30% OFF</strong></td>
+            <td><strong>~R$ 998,34</strong></td>
+          </tr>
+          <tr>
+            <td>A partir de 01/10/2025</td>
+            <td><strong style="color:var(--vermelho)">20% OFF</strong></td>
+            <td><strong>~R$ 1.140,96</strong></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="materiais-info">
+        <h4>📚 Materiais Didáticos — Aquisição obrigatória</h4>
+        <div class="mat-row">
+          <div class="mat-badge">
+            <strong>Positivo</strong>
+            <small>10x R$ 156,54</small>
+            <small style="color:#8899b0; font-size:.7rem">Kit obrigatório</small>
+          </div>
+          <div class="mat-badge">
+            <strong>OPEE</strong>
+            <small>10x R$ 27,85</small>
+            <small style="color:#8899b0; font-size:.7rem">À vista ou 10x no cartão</small>
+          </div>
+        </div>
+        <p style="font-size:.8rem; color:#4a6a5a; margin-top:12px; line-height:1.5">
+          ⚠️ <strong>Atenção:</strong> os livros de Espanhol e Ensino Religioso
+          <u>não fazem parte</u> do kit obrigatório.<br>
+          📦 Materiais disponíveis somente nas lojas virtuais a partir de NOV/2025.
+          Enviaremos o link assim que liberado!
+        </p>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-primary" id="btnProximoPgto" onclick="proximoPgto()" disabled>Forma de pagamento →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 6 – PAGAMENTO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-5">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">💳</div> Forma de Pagamento das Parcelas</div>
+      <p style="color:#5a6a7e; font-size:.9rem; margin-bottom:20px; line-height:1.6">
+        Como você prefere pagar as mensalidades? Escolha a opção mais cômoda para a sua família:
+      </p>
+
+      <div class="pgto-grid">
+        <div class="pgto-card" onclick="selecionarPgto(this, 'boleto')">
+          <div class="check-mark">✓</div>
+          <span class="p-icon">🏦</span>
+          <h4>Boleto Bancário</h4>
+          <p>Gerado mensalmente no portal do aluno. Vencimento até o dia 5 de cada mês.</p>
+        </div>
+        <div class="pgto-card" onclick="selecionarPgto(this, 'pix')">
+          <div class="check-mark">✓</div>
+          <span class="p-icon">⚡</span>
+          <h4>Pix</h4>
+          <p>Rápido e prático. Chave Pix disponível no portal e na secretaria.</p>
+        </div>
+        <div class="pgto-card" onclick="selecionarPgto(this, 'cartao')">
+          <div class="check-mark">✓</div>
+          <span class="p-icon">💳</span>
+          <h4>Cartão de Crédito</h4>
+          <p>Parcelamento disponível para os materiais didáticos. Consulte condições para a anuidade.</p>
+        </div>
+        <div class="pgto-card" onclick="selecionarPgto(this, 'debito')">
+          <div class="check-mark">✓</div>
+          <span class="p-icon">🏧</span>
+          <h4>Débito Automático</h4>
+          <p>Configure o débito direto na sua conta e não se preocupe com vencimentos!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">ℹ️</div> Informações importantes</div>
+      <div class="proj-list">
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--verde); font-size:.9rem">✅</div>
+          <div>
+            <h4>Matrícula confirmada após o 1º pagamento</h4>
+            <p>A vaga só é garantida após o pagamento da 1ª parcela da anuidade 2026 <strong>e</strong> a quitação do contrato de 2025.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--azul2); font-size:.9rem">📧</div>
+          <div>
+            <h4>Contrato digital</h4>
+            <p>Após recebermos a documentação, enviaremos o contrato de 2026 em formato digital para assinatura.</p>
+          </div>
+        </div>
+        <div class="proj-item">
+          <div class="proj-badge" style="background:var(--amarelo); color:var(--azul); font-size:.9rem">⚡</div>
+          <div>
+            <h4>Vagas limitadas por turma</h4>
+            <p>Para garantir o lugar do seu filho, recomendamos a confirmação até <strong>19/09/2025</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-primary" id="btnRevisao" onclick="irParaRevisao()" disabled>Ver resumo e confirmar →</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 7 – REVISÃO E CONFIRMAÇÃO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-6">
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">📋</div> Resumo da sua rematrícula</div>
+      <p style="color:#5a6a7e; font-size:.88rem; margin-bottom:20px">
+        Confira os dados abaixo antes de confirmar. Está tudo certo? 😊
+      </p>
+
+      <div id="resumoContent">
+        <!-- preenchido por JS -->
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title"><div class="icon">📝</div> Declaração do Responsável</div>
+      <div style="background:var(--cinza); border-radius:12px; padding:18px; font-size:.88rem; color:#5a6a7e; line-height:1.7; margin-bottom:16px">
+        Ao confirmar a rematrícula, declaro que as informações fornecidas são verdadeiras e que estou
+        ciente das condições e prazos apresentados. Entendo que a vaga será efetivada após o
+        pagamento da 1ª parcela e a assinatura do contrato digital que será enviado pela secretaria.
+      </div>
+      <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer">
+        <input type="checkbox" id="checkDecl" style="width:20px; height:20px; margin-top:2px; accent-color:var(--azul2); flex-shrink:0">
+        <span style="font-size:.9rem; color:var(--azul); font-weight:600; line-height:1.5">
+          Li e concordo com as condições de rematrícula. Confirmo que os dados estão corretos.
+        </span>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prev()">← Voltar</button>
+      <button class="btn btn-success" onclick="confirmar()">
+        ✅ Confirmar Rematrícula
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETAPA 8 – FINALIZAÇÃO -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="etapa" id="etapa-7">
+
+    <div class="fim-hero">
+      <div class="check-big">✓</div>
+      <h2>Rematrícula <span>confirmada</span>!<br>Que alegria! 🎉</h2>
+      <p>
+        Recebemos sua solicitação com todo o carinho.
+        Em breve, nossa equipe entrará em contato para finalizar
+        o processo e formalizar o contrato.
+      </p>
+      <div class="aviso-secretaria">
+        <strong>📞 A secretaria entrará em contato!</strong>
+        Nossa equipe de rematrícula irá falar com você em breve para formalizar
+        a assinatura do contrato digital e orientar sobre os próximos passos.
+        <br><br>
+        Enquanto isso, qualquer dúvida, fale conosco:
+      </div>
+    </div>
+
+    <div class="contato-fim">
+      <div class="tel-icon">💬</div>
+      <div>
+        <strong>(15) 99768-3409</strong>
+        <p>WhatsApp do atendimento de rematrícula — estamos à disposição! 💚</p>
+      </div>
+    </div>
+
+    <div class="versículo-fim" style="margin-top:20px">
+      <div class="v-icon">🙏</div>
+      <blockquote>
+        "Sim, grandes coisas fez o Senhor por nós,<br>e por isso estamos alegres."
+      </blockquote>
+      <cite>— Salmos 126:3</cite>
+      <p style="margin-top:14px; font-size:.9rem; color:var(--azul); font-weight:700">
+        Gratos pela parceria e confiança. Deus abençoe! 💛<br>
+        <span style="font-weight:400; color:#6a7a8a">Diretoria Administrativa — Votorantim</span>
+      </p>
+    </div>
+
+  </div>
+
+</div><!-- /container -->
+
+
+<script>
+  let currentStep = 0;
+  const totalSteps = 7; // 0-6 (+ etapa final = 7)
+  let planoSelecionado = null;
+  let pgtoSelecionado  = null;
+
+  // ── Navegação ──
+  function goTo(step) {
+    if (step > currentStep) return; // não pula etapas
+    document.getElementById('etapa-' + currentStep).classList.remove('active');
+    currentStep = step;
+    document.getElementById('etapa-' + currentStep).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function next() {
+    document.getElementById('etapa-' + currentStep).classList.remove('active');
+    currentStep++;
+    document.getElementById('etapa-' + currentStep).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prev() {
+    document.getElementById('etapa-' + currentStep).classList.remove('active');
+    currentStep--;
+    document.getElementById('etapa-' + currentStep).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress() {
+    const dots  = document.querySelectorAll('.step-dot');
+    const lines = document.querySelectorAll('.step-line');
+    dots.forEach((d, i) => {
+      d.classList.remove('active','done');
+      if (i < currentStep) d.classList.add('done');
+      if (i === currentStep) d.classList.add('active');
+    });
+    lines.forEach((l, i) => {
+      l.classList.toggle('done', i < currentStep);
+    });
+  }
+
+  // ── Máscara CPF ──
+  function mascaraCPF(input) {
+    let v = input.value.replace(/\D/g,'');
+    v = v.replace(/(\d{3})(\d)/,'$1.$2');
+    v = v.replace(/(\d{3})(\d)/,'$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+    input.value = v;
+  }
+
+  // ── Upload ──
+  function showFileName(input) {
+    if (input.files && input.files[0]) {
+      const fn = document.getElementById('fileName');
+      fn.textContent = '✓ ' + input.files[0].name;
+      fn.style.display = 'block';
+    }
+  }
+
+  // ── Validação dados ──
+  function validarDados() {
+    const campos = ['nomeAluno','serieAtual','nomeResp','cpfResp','telefone','email','endereco'];
+    let ok = true;
+    campos.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'var(--vermelho)';
+        ok = false;
+      } else {
+        el.style.borderColor = '#d0d8e8';
+      }
+    });
+    if (!ok) {
+      alert('Por favor, preencha todos os campos obrigatórios marcados com ✱');
+      return;
+    }
+    next();
+  }
+
+  // ── Plano ──
+  const nomesPlano = { promo:'Promoção – 1ª Parcela com 40% OFF + 12x R$ 1.354,89', parcelado:'Parcelado 13x R$ 1.426,20', avista:'À Vista – consultar secretaria' };
+  function selecionarPlano(card, plano) {
+    document.querySelectorAll('.plano-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    planoSelecionado = plano;
+    document.getElementById('btnProximoPgto').disabled = false;
+  }
+
+  function proximoPgto() {
+    if (!planoSelecionado) return;
+    next();
+  }
+
+  // ── Pgto ──
+  const nomesPgto = { boleto:'Boleto Bancário', pix:'Pix', cartao:'Cartão de Crédito', debito:'Débito Automático' };
+  function selecionarPgto(card, pgto) {
+    document.querySelectorAll('.pgto-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    pgtoSelecionado = pgto;
+    document.getElementById('btnRevisao').disabled = false;
+  }
+
+  // ── Revisão ──
+  function irParaRevisao() {
+    const nome    = document.getElementById('nomeAluno').value;
+    const serie   = document.getElementById('serieAtual').value;
+    const resp    = document.getElementById('nomeResp').value;
+    const cpf     = document.getElementById('cpfResp').value;
+    const tel     = document.getElementById('telefone').value;
+    const email   = document.getElementById('email').value;
+
+    const linhas = [
+      ['Aluno',              nome],
+      ['Série 2026',         serie ? serie.replace('do Ensino Fundamental','').trim() + ' (Ensino Fundamental)' : '—'],
+      ['Responsável',        resp],
+      ['CPF',                cpf],
+      ['Telefone',           tel],
+      ['E-mail',             email],
+      ['Plano escolhido',    nomesPlano[planoSelecionado] || '—'],
+      ['Forma de pagamento', nomesPgto[pgtoSelecionado]  || '—'],
+    ];
+
+    document.getElementById('resumoContent').innerHTML = linhas.map(([l,v]) =>
+      `<div class="resumo-linha"><span class="r-label">${l}</span><span class="r-valor">${v}</span></div>`
+    ).join('');
+
+    next();
+  }
+
+  // ── Confirmar ──
+  function confirmar() {
+    if (!document.getElementById('checkDecl').checked) {
+      alert('Por favor, marque a caixa de declaração para confirmar.');
+      return;
+    }
+    document.getElementById('etapa-' + currentStep).classList.remove('active');
+    currentStep = 7; // etapa final
+    document.getElementById('etapa-7').classList.add('active');
+    // marcar todos como done
+    document.querySelectorAll('.step-dot').forEach(d => { d.classList.remove('active'); d.classList.add('done'); });
+    document.querySelectorAll('.step-line').forEach(l => l.classList.add('done'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
